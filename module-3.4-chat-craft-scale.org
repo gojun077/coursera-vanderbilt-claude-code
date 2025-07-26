@@ -1,0 +1,140 @@
+#+TITLE: Module 3.4, 3.5
+#+SUBTITLE: Chat, Craft, and Scale - Chat
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: spending more time designing and innovating
+#+KEYWORDS: LLM, claude code, prompting, quality
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-27 Sun]
+- Last Updated: [2025-07-27 Sun 00:30]
+
+Developing quality software using Generative AI isn't as simple as just
+giving the AI big prompts. This is where software engineering comes in.
+The human must still guide the AI by specifying the right architecture and
+design. If we use the right process, Prof. White believes that we can
+create even higher quality software with consistency while using generative
+AI.
+
+* Topics
+
+** Chat
+
+Chatting with generative AI tools can be a surprisingly effective way to
+explore a design space and problem space before starting to write code. In
+the old way of doing things you might refine your requirements and design
+while chatting with colleagues at lunch or in the office. These are still
+good ways to refine your thinking, but Claude Code can also help in this
+regard.
+
+In the lecture Prof. White proposes to write a wrapper around Claude Code
+so that =claude= can be executed via HTTP API calls. We will ask =claude=
+to help us come up with the requirements:
+
+#+begin_src markdown
+  ### Prompt
+
+  Let's design the requirements for a wrapper around Claude Code. This
+  would expose `claude` as an API via HTTP that could be called on a
+  server. Come up with an initial set of requirements.
+
+  ### Response
+
+  Here are the core requirements for a Claude Code HTTP API wrapper:
+
+  #### Core Functionality Requirements
+
+  ##### API Endpoint Structure
+
+  - RESTful HTTP API with clear resource-based endpoints
+  - Support for both synchronous and async execution modes
+  - Standardized request/response formats (JSON)
+  - Version-controlled API endpoints (e.g. `/v1/execute`, `/v1/tasks`)
+
+  ##### Execution Capabilities
+
+  - Execute arbitrary code tasks via HTTP requests
+  - Support for multi-step coding workflows
+  - Handle files uploads and downloads for code projects
+  - Stream real-time execution logs and progress updates
+  - Support for long-running tasks with proper timeout handling
+
+  #### Authentication & Security
+
+  ##### Access Control
+
+  - API key-based authentication
+  - Rate-limiting per API key
+  - Request size and execution time limits
+  - Sandboxed execution environment isolation
+  - Input validation and sanitization
+
+  ##### Security Boundaries
+
+  - Restrict file system access to designated directories
+  - Network access controls for executed code
+  - Resource limits (CPU, memory, disk usage)
+  - Audit logging of all API requests and executions
+
+  #### Task Management
+
+  ##### Job Lifecycle
+
+  - Create, monitor, and cancel execution jobs
+  - Job status tracking (queued, running, completed, failed)
+  - Persistent job history and results storage
+  - Job prioritization and queuing system
+
+  ##### Result Handling
+
+  - Structured output format for code execution results
+  - File artifact collection and retrieval
+  - Error reporting with detailed diagnostics
+  - Support for partial results from interrupted tasks
+
+  #### Infrastructure Requirements
+
+  ##### Scalability
+
+  - Horizontal scaling support for multiple concurrent requests
+  - Load balancing across execution modes
+  - Resource pooling and efficient task distribution
+  - Graceful degradation under high load
+
+  ##### Reliability
+
+  - Health check endpoints for monitoring
+  - Automatic retry mechanism for transient failures
+  - Persistent storage for job state and results
+  - Backup and recovery procedures
+
+  #### Developer Experience
+
+  ##### Documentation & Integration
+
+  - OpenAPI/Swagger specification
+  - SDK's for popular programming languages
+  - Comprehensive API documentation with examples
+  - Webhook support for asynchronous job completion notifications
+
+  ##### Monitoring & Observability
+
+  - Metrics for API usage, execution times, and success rates
+  - Structured logging for debugging and analysis
+  - Integration with monitoring systems (`prometheus`, etc)
+  - Dashboard for system health and usage analytics
+
+  Would you like me to elaborate on any of these requirement areas or discuss
+  specific implementation considerations?
+#+end_src
+
+The list of requirements that Claude returned above gives us some food for
+thought and probably includes some req's that we might not have thought of
+if we were on our own.
+
+You could also provide Claude with a pre-existing list of product
+requirements and then ask =claude= to point out what is missing. Looking at
+the list of requirements will enable you to prioritize some req's in light
+of your app's design and problem space.
