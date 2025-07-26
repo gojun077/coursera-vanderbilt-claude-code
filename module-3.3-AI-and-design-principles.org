@@ -1,0 +1,70 @@
+#+TITLE: Module 3.3
+#+SUBTITLE: Does AI Labor Understand Design Principles?
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: specifying design principles to improve code quality
+#+KEYWORDS: LLM, claude code, prompting, design principles
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 23:48]
+
+In the opening example for this lesson, Prof. White demonstrates that
+=claude= is aware of the /SOLID/ design principles from OOP (object
+oriented programming):
+
+#+begin_src markdown
+  ### Q: Do you know the SOLID design principles from OOP?
+
+  ### Answer
+
+  Yes, SOLID is an acronym for five key object-oriented design principles
+  that help create more maintainable, flexible, and robust software:
+
+  - **S** _Single Responsibility Principle_ (SRP) A class should have only
+  one reason to change, meaning it should have only one job or
+  responsibility. For example, a `User` class should only handle user data,
+  not also handle database operations or email sending.
+
+  - **O** _Open/Closed Principle_ (OCP) Software entities should be open for
+  extension but closed for modification. You should be able to add new
+  functionality without changing existing code. This is often achieved
+  through inheritance, interfaces, or composition.
+
+  - **L** _Liskov Substitution Principle_ (LSP) Objects of a superclass
+  should be replaceable with objects of a subclass without breaking the
+  application. If you have a `Bird` class and a `Penguin` subclass, the
+  penguin should be usable wherever a bird is expected (though this example
+  actually violates LSP if birds are expected to fly).
+
+  - **I** _Interface Segregation Principle_ (ISP) No client should be forced
+  to depend on methods it doesn't use. Instead of one large interface, create
+  smaller, more specific interfaces. For example, rather than a huge `Animal`
+  interface with methods like `fly()`, `swim()`, and `run()`, create separate
+  interfaces like `Flyable`, `Swimmable`, and `Runnable`.
+
+  - **D** _Dependency Inversion Principle_ (DIP) High-level modules should
+  not depend on low-level modules. Both should depend on abstractions. Also,
+  abstractions should not depend on details; details should depend on
+  abstractions. This typically involves using interfaces or abstract classes
+  rather than concrete implementations.
+
+  These principles work together to create code that's easier to understand,
+  maintain, and extend over time.
+#+end_src
+
+Prof. White adds that if we refer to design patterns / principles such as
+/SOLID/ we can save tokens as it is not necessary to expand upon each
+principle as the meaning is already encapsulated in the abbreviation
+/SOLID/.
+
+In the lecture he asked =claude= to refactor Solution A from module 3.1
+(Write a 20-line Python function that can store data it receives as JSON)
+to demonstrate /SOLID/ principles, and the AI did so, changing the
+implementation to a OOP style using /SOLID/ principles.
+
+Prof. White suggests specifying well-known design patterns to the AI
+instead of listing 1,000 prescriptive rules about how to write code in your
+code base.
