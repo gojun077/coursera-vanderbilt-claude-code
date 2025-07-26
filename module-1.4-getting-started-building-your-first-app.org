@@ -1,0 +1,95 @@
+#+TITLE: Getting Started
+#+SUBTITLE: building your first app with claude code
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: example CLAUDE.md and claude code '/' commands
+#+KEYWORDS: gen AI, LLM, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 17:20]
+
+In this module, students are presented with instructions for how to
+subscribe to an Anthropic Claude subscription or generate an API key so
+you can use /claude code/. Since I already have =claude= set up and
+am familiar with its operation, will not list the setup steps here.
+
+* Topics
+
+** /Big/ Prompt
+
+#+begin_src markdown
+  I want you to create a modern, professional NextJS expense tracking
+  application. Here's my vision:
+
+  APPLICATION OVERVIEW:
+
+  Build a complete expense tracking web app that helps users manage their
+  personal finances. The app should feel modern, intuitive, and professional.
+
+  CORE FEATURES:
+  - Add expenses with date, amount, category, and description
+  - View expenses in a clean, organized list
+  - Filter expenses by date range and category
+  - Dashboard with spending summaries and basic analytics
+  - Categories: Food, Transportation, Entertainment, Shopping, Bills, Other
+  - Data persistence using localStorage for this demo
+
+  TECHNICAL REQUIREMENTS:
+  - NextJS 14 with App Router
+  - TypeScript for type safety
+  - Tailwind CSS for styling with a modern, clean design
+  - Responsive design that works on desktop and mobile
+  - Use React hooks for state management
+  - Form validation for expense inputs
+  - Date picker for expense dates
+  - Currency formatting for amounts
+
+  DESIGN REQUIREMENTS:
+  - Clean, modern interface with a professional color scheme
+  - Intuitive navigation and user experience
+  - Visual feedback for user actions
+  - Loading states and error handling
+  - Mobile-responsive design
+
+  SPECIFIC FUNCTIONALITY:
+  - Expense form with validation
+  - Expense list with search and filter capabilities
+  - Summary cards showing total spending, monthly spending, top categories
+  - Basic charts or visual representations of spending patterns
+  - Export functionality (at least CSV)
+  - Delete and edit existing expenses
+
+  Please create this as a complete, production-ready application. Set up the
+  project structure, implement all features, and make sure everything works
+  together seamlessly. Focus on creating something that looks professional
+  and that I could actually use to track my expenses.
+
+  When you're done, provide instructions on how to run the application and
+  test all features.
+#+end_src
+
+** Claude Code expected output
+
+1. *Plan the approach*: It will outline how it will build the application
+2. *Create the project structure*: Set up NextJS with TypeScript and Tailwind
+3. *Build components*: Create all the necessary React components
+4. *Implement features*: Add all the functionality you requested
+5. *Test and verify*: Make sure everything works together (it may forget to
+   do this... if so, remind it with something like "please compile and make
+   sure the application runs...")
+
+** Testing the application
+
+#+begin_src sh
+  npm run dev
+#+end_src
+
+Then navigate to http://localhost:3000 in your web browser
+
+** Understanding what happened
+
+Note that =claude= generated an entire application, you did not tell
+it step-by-step what to build.
