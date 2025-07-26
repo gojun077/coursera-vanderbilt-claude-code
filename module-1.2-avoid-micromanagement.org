@@ -1,0 +1,46 @@
+#+TITLE: Module 2
+#+SUBTITLE: avoid micromanaging the AI - 1000x productivity increase
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: taking the human out of the loop so AI agent can scale up
+#+KEYWORDS: gen AI, LLM, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Upated: [2025-07-26 Sat 16:55]
+
+In module 2, Prof. White emphasizes at the beginning of his lecture that
+developers need to move away from putting themselves in the loop and
+prompting the AI to create individual functions and files. He gives the
+example of an engineering manager who stands behind a new hire and over
+their shoulder tells the programmer exactly how to write each function.
+That is a prime example of micro-management, and it would be a huge waste
+of both the manager's and the developer's time.
+
+A better way to use the AI would be a prompt like the following:
+
+#+begin_quote
+Act like the typical user of this application, then create different ways
+of sorting, filtering, and displaying the expenses that are incredibly
+powerful and useful.
+#+end_quote
+
+In the above prompt, we are not being overly prescriptive and we are
+trusting the AI to think about the problem and come up with an appropriate
+solution.
+
+Prof. White then shows what the AI produced in about 10 minutes, and it is
+pretty amazing! Not only did it satisfy the requirements listed in the
+prompt, it also put itself in the user's shoes to determine what features
+to build. But if we had instead micromanaged the AI by telling it to create
+this function, that file, we would be putting ourselves in the loop,
+thereby slowing down the AI. /You/ become the bottleneck!
+
+If you want the AI agent to be able to scale up and use sub-agents, you
+must not be giving the agent tiny tasks requiring your human input. Just
+like your boss doesn't stand over your shoulder and tell you how to write
+every line of code, you don't want to be doing the same thing to your AI.
+If you allow your AI to scale, you can truly see 1000x productivity
+improvements in your programming work.

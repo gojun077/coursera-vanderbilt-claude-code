@@ -2,7 +2,7 @@
 #+SUBTITLE: Course Intro, Philosophy of using AI Labor, etc
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
-#+DESCRIPTION: avoiding micro-management of agentic coding tools
+#+DESCRIPTION: creating an expense tracker web tool from scratch
 #+KEYWORDS: gen AI, LLM, claude code, prompting, coding agents
 #+LANGUAGE: en
 
