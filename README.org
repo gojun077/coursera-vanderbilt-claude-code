@@ -1,0 +1,33 @@
+#+TITLE: README for Claude Code from Coursera-Vanderbuilt Univ
+#+SUBTITLE: Software Engineering with Generative AI Agents
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: coursework notes and code
+#+KEYWORDS: gen AI, LLM, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 14:29]
+
+This repo contains my notes and code for coursework from [[https://www.coursera.org/learn/claude-code/home/info][Claude Code:
+Software Engineering with Generative AI Agents]] taught by Professor Jules
+White, Professor Computer Science at Vanderbilt University in Nashville,
+Tennessee.
+
+The course consists of the following 7 modules:
+
+- (1) Scaling Up Software Engineering with Claude Code & Generative AI
+- (2) Leveraging the Software Engineering Advantages of Claude Code
+- (3) Generative AI, Claude Code, & Code Quality
+- (4) Building Process & Context in Claude Code
+- (5) Version Control & Parallel Development with Claude Code
+- (6) Improving Claude Code Scalability & Reasoning
+- (7) Multimodal Prompting & Process
+
+There is one homework assignment, /Create your Process/ at the end of
+Module 7 in which the student is required to describe what kind of
+information they will include in their ~CLAUDE.md~ file, which gives
+basic context and guidelines for Claude Code to use when working in a
+source code repository.
