@@ -1,0 +1,79 @@
+#+TITLE: Module 2.3 Best of n pattern for AI labor
+#+SUBTITLE: build 'n' different prototypes of the same app
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: for AI, building apps is cheap
+#+KEYWORDS: gen AI, LLM, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 17:57]
+
+Before the introduction of agentic coding tools, development of software by
+humans was expensive, both in time and cost of programmers' labor. Because
+building software was so expensive, one common failure mode was building
+the wrong thing and being unable to pivot from bad decisions made earlier
+in the development process. /Sunk costs/ were a real impediment. But as we
+saw in module 1, =claude= is able to one-shot the creation of an entire
+expense tracking app if it is given a suitable prompt, and it can
+accomplish this task in less than 5 or 10 minutes! The cost in tokens for
+creating the app is less than $5 at the time of writing this in July 2025,
+and the costs will continue to go down as models become more powerful and
+efficient.
+
+Given how cheap in time and labor it is for =claude= to generate an app,
+humans can now task AI labor with creating ~n~ different iterations of an
+app to see which is best.
+
+Here is a sample prompt that Prof. White used when working with =claude=
+to write the expense tracker app:
+
+#+begin_src markdown
+  Okay, that was awesome!
+
+  Can you go back to the prior branch and repeat this process, but solve the
+  underlying problem in a different and wildly valuable way?
+
+  Surprise me with your creativity.
+#+end_src
+
+This was =claude='s response:
+
+#+begin_src markdown
+  Okay, great, I'll go check out the other branch that we based this one off of,
+  which was `feature-dynamic-categories`.
+
+  Now let me create a completely different and creative approach to solving
+  expense tracking. I'll focus on AI powered insights, gamification, and
+  social features.
+#+end_src
+
+Prof. White looked at the new features and decided that he would just go
+with the earlier version created in previous feature branches. But the fact
+that you can create new features and program versions so easily makes /sunk
+cost/ considerations almost moot. Imagine telling a human dev team to throw
+away their work from the past few weeks and start from scratch writing a
+new iteration of an app with different features - it would probably
+demoralize the dev team!
+
+Since each iteration exists in its own feature branch, even if you decide
+not to use all the code from a new iteration, you can cherry pick certain
+commits from throw-away branches into different branches that you choose to
+use for your app implementation.
+
+This frees up the human to focus on the big picture, for example, what
+features are truly valuable? What features does the market want in this
+kind of application? As a human, you can now answer these questions by
+using AI labor to create many different versions of real, working software
+to help you validate your ideas.
+
+You can also define a rubric for grading your app and use the AI to help
+you /grade/ different iterations to help you choose the best one.
+
+#+begin_quote
+  "AI labor is fast, cheap, and egoless"
+
+  - Prof. Jules White
+#+end_quote
