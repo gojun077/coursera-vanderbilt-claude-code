@@ -82,3 +82,11 @@ The sections below will refer to these branches.
   Be thorough and technical - this analysis will inform our decision about
   which approach to adopt or how to combine them.
 #+end_src
+
+** my-evaluation-template.md
+
+You should create your own markdown evaluation template that you can use
+when you have multiple implementations of a feature which you want to
+compare. This is your /Personal Evaluation Framework/. Once you have this
+you can instruct ~claude code~ to run this against multiple branches or git
+worktrees.
