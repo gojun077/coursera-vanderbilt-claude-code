@@ -1,5 +1,5 @@
-#+TITLE: Implementing version 1
-#+SUBTITLE: add csv export feature
+#+TITLE: add csv export feature
+#+SUBTITLE: Implementing version 1
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
 #+DESCRIPTION: coursework notes and code
