@@ -1,4 +1,4 @@
-#+TITLE: README for Claude Code from Coursera-Vanderbuilt Univ
+#+TITLE: Claude Code course from Coursera & Vanderbuilt University
 #+SUBTITLE: Software Engineering with Generative AI Agents
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
