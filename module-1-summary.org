@@ -1,0 +1,50 @@
+#+TITLE: Module 1
+#+SUBTITLE: Course Intro, Philosophy of using AI Labor, etc
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: avoiding micro-management of agentic coding tools
+#+KEYWORDS: gen AI, LLM, claude code, prompting, coding agents
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 14:43]
+
+In module 1, Prof. White gives an overview of the course using a real
+example of creating an expense tracker app from scratch. He emphasizes that
+using coding agents effectively requires practitioners to change the way
+they think about AI tools.
+
+When LLM chatbots first came out, many programmers copied generated code
+output from the chatbot into their program manually. As LLM's have become
+more capable and are now able to use tools to access your local file system
+and run shell commands, it is no longer necessary to manually copy and
+paste generated code, as LLM's supporting tool use (like Claude Code) can
+directly edit source files.
+
+Instead of micro-managing AI tools to help you write individual functions,
+you as a developer should start acting more like an engineering manager
+or CEO managing AI /workers/.
+
+/How would you approach building software if you had a team of 1,000
+developers available to you?/
+
+Prof. White illustrates the possibilities opened up by Claude Code with the
+following prompt:
+
+#+begin_quote
+Write a complete =next.js= plus ~nextUI~ web application for tracking
+expenses. When you're done, start it for me to test.
+#+end_quote
+
+The result of the prompt is that Claude Code created it's own /TODO/ list
+and then sequentially completed the steps until is was done building a
+working app expense tracker app! The process from start to finish took
+less than 5 minutes!
+
+Even if you had a team of 100 engineers, it would take them longer than 5
+minutes to build the app - they would need formal requirements and just the
+coordination time alone between engineers would take more than 5 minutes.
+
+*Agentic coding tools like Claude Code will change everything*
