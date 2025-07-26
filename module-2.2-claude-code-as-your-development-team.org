@@ -1,0 +1,43 @@
+#+TITLE: Module 2.2 - claude code is your AI dev team
+#+SUBTITLE: agentic coding tools as AI labor
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: prompt bigger!
+#+KEYWORDS: claude code, agentic coding, LLM, AI, productivity
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 17:42]
+
+Most people first started using AI tools using copy and paste especially
+with early versions of Github Copilot or ChatGPT to help write code at the
+function level. But now that AI models are more capable, they can
+accomplish more and require higher-level, bigger picture prompts.
+
+You want to move away from micro-managing and move toward delegating tasks
+to AI labor. That requires you to learn how to prompt AI so that it can
+act autonomously on your behalf. If you insist on micro-managing, you can
+only manage one coding agent at a time.
+
+You need to zoom out and spend more time thinking about your /vision/ for
+your app. For example:
+
+#+begin_src markdown
+  Look at this list of expenses. How could we make it incredibly bold,
+  beautiful, and modern? Blow my mind with the elegance, simplicity, and
+  beauty of your user interface.
+#+end_src
+
+Instead of pointing out individual items to fix, try posing the entire
+problem to the AI. Here's another example:
+
+#+begin_src markdown
+  When I'm trying to prepare my small businesses' taxes, I find it really
+  hard to gather all of the relevant expenses. Create something amazing to
+  solve that problem for me.
+#+end_src
+
+If you use =claude= correctly, you can have the equivalent of 100, 1000
+developers available to work on your development tasks.
