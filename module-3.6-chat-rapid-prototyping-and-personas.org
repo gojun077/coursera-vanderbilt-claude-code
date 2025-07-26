@@ -1,0 +1,52 @@
+#+TITLE: Module 3.6 - Chat cont'd
+#+SUBTITLE: rapid prototyping and personas
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: design API routes
+#+KEYWORDS: LLM, claude code, prompting, design principles
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-27 Sun]
+- Last Updated: [2025-07-27 Sun 01:52]
+
+In this lecture, Prof. White illustrates the use of chatting with Claude
+to help design the API interface.
+
+* Topics
+
+** Prompt
+
+#+begin_quote
+Let's design the core API routes. Propose 3 designs based on different
+REST structures. I want 10 routes or less
+#+end_quote
+
+Prof. White chose a smaller number of routes for simplicity's sake and to
+help us visualize and understand what is going on. Claude generated the
+3 REST structures below:
+
+** Design 1 - Resource-Oriented (classic REST)
+
+| Verb   | Endpoint                           | Description                     |
+|--------+------------------------------------+---------------------------------|
+| POST   | /api/v1/jobs                       | Create new execution job        |
+| GET    | /api/v1/jobs                       | List all jobs (with pagination) |
+| GET    | /api/v1/jobs/{id}                  | Get specific job details        |
+| DELETE | /api/v1/jobs/{id}                  | Cancel/delete job               |
+| GET    | /api/v1/jobs/{id}/logs             | Get job execution logs          |
+| GET    | /api/v1/jobs/{id}/artifacts        | List job output artifacts       |
+| GET    | /api/v1/jobs/{id}/artifacts/{name} | Download specific artifact      |
+| POST   | /api/v1/jobs/{id}/files            | Upload files to job workspace   |
+| GET    | /api/v1/health                     | Health check endpoint           |
+
+** Design 2 - Action-Oriented (RPC-style)
+
+| Verb | Endpoint              | Description                      |
+|------+-----------------------+----------------------------------|
+| POST | /api/v1/execute       | Execute code task                |
+| POST | /api/v1/execute/async | Execute code task asynchronously |
+| GET  | /api/v1/status/{id}   | Check execution status           |
+| POST | /api/v1/cancel/{id}   | Cancel running execution         |
+|      |                       |                                  |
