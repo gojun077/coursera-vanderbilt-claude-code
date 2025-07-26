@@ -1,0 +1,76 @@
+#+TITLE: Module 3.1 Can AI Judge Code Quality?
+#+SUBTITLE: leverage AI's knowledge of programming paradigms
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: using design patterns
+#+KEYWORDS: gen AI, LLM, claude, prompting, markdown, QA, code patterns
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-07-26 Sat]
+- Last Updated: [2025-07-26 Sat 18:29]
+
+In this lecture, Prof. Jules White demonstrates that Anthropic Claude
+has access to knowledge about programming best practices. We can leverage
+this knowledge to have =claude= check its own work.
+
+* Topics
+
+** Scoring coding solutions
+
+#+begin_src markdown
+  Write a 20-line Python function that can store data it receives as JSON.
+
+  Create a table to score the coding solutions across a number of important
+  dimensions.
+#+end_src
+
+The following is the rubric returned by DeepSeek in a ~markdown~ table:
+
+#+begin_src markdown
+  |Dimension|Weight|Score (1-5)|Notes|
+  |:-------:|:----:|:---------:|:---:|
+  |Functionality|30%|5|Correctly implements JSON storage|
+  |Error Handling|25%|5|Comprehensive exception handling|
+  |Code Readability|20%|5|Clean, well-commented code|
+  |Parameter Flexibility|10%|4|Default filename but customizable|
+  |Return Value|10%|4|Returns success status|
+  |Line Count Compliance|5%|5|Exactly 20 lines as requested|
+  |**Total**|100%|4.8|Excellent solution overall|
+#+end_src
+
+In Prof. White's example, the rubric is a bit more detailed:
+
+#+begin_src markdown
+  |Dimension       |Weight|Description                                                                  |
+  |---------------|------|------------------------------------------------------------------|
+  |Functionality  |High   |Does it correctly store data as JSON? Handles the core requirement? |
+  |Error Handling |High   |Gracefully handles invalid JSON, file errors, type mismatches        |
+  |Code Quality   |Medium |Clean, readable, follows Python conventions (PEP8)                    |
+  |Flexibility    |Medium |Adaptable to different use cases, configurable parameters            |
+  |Performance    |Medium |Efficient memory usage, appropriate for the task scope                |
+  |Documentation  |Medium |Clear docstrings, helpful comments, self-documenting code            |
+  |Security        |Medium |Safe file operations, input validation, no obvious vulnerabilities  |
+  |Maintainability|Medium |Easy to modify, extend, or debug                                          |
+  |Line Efficiency|Low     |Makes efficient use of the 20-line constraint                          |
+  |Best Practices |Low     |Follows Python idioms, proper imports, context managers              |
+#+end_src
+
+Prof. White then had Claude use the above rubric to grade two different
+implementations of the 20-line Python function and Claude chose a winner
+and justified its scoring with comments like,
+
+#+begin_quote
+/Error Handling/
+*Solution B* - has comprehensive ~try/except~ blocks and meaningful error
+feedback
+
+/Code Quality/
+*Solution B* - includes type hints and cleaner structure
+#+end_quote
+
+** Applying this to CLAUDE.md
+
+Later we will see how we can add code scoring criteria to ~CLAUDE.md~ to
+ensure that =claude= writes better quality code.
