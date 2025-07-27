@@ -20,7 +20,7 @@ to help design the API interface.
 
 #+begin_quote
 Let's design the core API routes. Propose 3 designs based on different
-REST structures. I want 10 routes or less
+~REST~ structures. I want 10 routes or less.
 #+end_quote
 
 Prof. White chose a smaller number of routes for simplicity's sake and to
@@ -41,12 +41,311 @@ help us visualize and understand what is going on. Claude generated the
 | POST   | /api/v1/jobs/{id}/files            | Upload files to job workspace   |
 | GET    | /api/v1/health                     | Health check endpoint           |
 
+*Design 1* treats executions as /jobs/ - traditional REST with clear
+resource hierarchy, good for job queuing systems.
+
 ** Design 2 - Action-Oriented (RPC-style)
 
-| Verb | Endpoint              | Description                      |
-|------+-----------------------+----------------------------------|
-| POST | /api/v1/execute       | Execute code task                |
-| POST | /api/v1/execute/async | Execute code task asynchronously |
-| GET  | /api/v1/status/{id}   | Check execution status           |
-| POST | /api/v1/cancel/{id}   | Cancel running execution         |
-|      |                       |                                  |
+| Verb | Endpoint                     | Description                      |
+|------+------------------------------+----------------------------------|
+| POST | /api/v1/execute              | Execute code task                |
+| POST | /api/v1/execute/async        | Execute code task asynchronously |
+| GET  | /api/v1/status/{id}          | Check execution status           |
+| POST | /api/v1/cancel/{id}          | Cancel running execution         |
+| GET  | /api/v1/results/{id}         | Get execution results            |
+| GET  | /api/v1/logs/{id}            | Get execution logs               |
+| POST | /api/v1/upload/{id}          | Upload files for execution       |
+| GET  | /api/v1/download/{id}/{file} | Download result file             |
+| GET  | /api/v1/health               | Health check endpoint            |
+
+*Design 2* focuses on actions rather than resources - more intuitive for
+code execution workflows, simpler mental model
+
+** Design 3 - Hybrid (Task-focused)
+
+| Verb   | Endpoint                        | Description                        |
+|--------+---------------------------------+------------------------------------|
+| POST   | /api/v1/tasks                   | Create and optionally execute task |
+| GET    | /api/v1/tasks/{id}              | Get task status and results        |
+| PATCH  | /api/v1/tasks/{id}              | Update task (cancel, modify)       |
+| DELETE | /api/v1/tasks/{id}              | Delete task and cleanup            |
+| POST   | /api/v1/tasks/{id}/execute      | Execute existing task              |
+| GET    | /api/v1/tasks/{id}/stream       | Stream live execution output       |
+| POST   | /api/v1/tasks/{id}/files        | Upload files to task               |
+| GET    | /api/v1/tasks/{id}/files/{name} | Download task files                |
+| GET    | /api/v1/health                  | Health check endpoint              |
+
+*Design 3* uses /tasks/ as the main resource with sub-actions - balances REST
+principles with execution-specific needs, supports both sync/async patterns.
+
+
+** Follow-up prompt to refine the REST API design - Design 2 feedback
+
+Using *Design 2*, which Claude generated above, Prof. White asked =claude=
+to point out limitations in the proposed REST API structure
+
+#+begin_quote
+With this API design, what use cases would be hard to support? What
+friction might it cause? Poke some holes in it.
+#+end_quote
+
+Prof. White's motivation is to make sure he is not missing anything. This
+is a way to conduct /gap analysis/.
+
+| Verb | Endpoint                     | Description                      |
+|------+------------------------------+----------------------------------|
+| POST | /api/v1/execute              | Execute code task                |
+| POST | /api/v1/execute/async        | Execute code task asynchronously |
+| GET  | /api/v1/status/{id}          | Check execution status           |
+| POST | /api/v1/cancel/{id}          | Cancel running execution         |
+| GET  | /api/v1/results/{id}         | Get execution results            |
+| GET  | /api/v1/logs/{id}            | Get execution logs               |
+| POST | /api/v1/upload/{id}          | Upload files for execution       |
+| GET  | /api/v1/download/{id}/{file} | Download result file             |
+| GET  | /api/v1/health               | Health check endpoint            |
+
+** Claude's follow-up answer re:limitations in REST API *Design 2*
+
+*** 1. File Upload Timing Issues
+
+*Problem*: You have to create an execution first to get an ID, then upload
+files
+
+#+begin_src text
+  POST /api/v1/execute/async -> {id: "123"}
+  POST /api/v1/upload/123    -> upload files
+  // But execution may have already started!
+#+end_src
+
+*Friction*: Race conditions, complex client logic, wasted executions
+
+*Better approach*: Allow file uploads during creation or have a separate
+workspace concept.
+
+*** 2. No Batch Operations Support
+
+*Problem*: No way to handle multiple related tasks efficiently
+
+#+begin_src text
+  // Want to: "Process these 5 CSV files with the same script"
+  // Have to: Make 5 separate API calls, manage 5 different IDs
+#+end_src
+
+*Friction*: Client complexity, network overhead, no atomic operations
+
+*Missing*:
+
+- =POST /api/v1/execute/batch=
+- =GET /api/v1/results/batch/{batch_id}=
+
+*** 3. Limited File Management
+
+*Problems*:
+
+- Can't list uploaded files: "What files did I upload to job 123?"
+- Can't delete files: "I uploaded the wrong file"
+- Can't organize files: "Put these in a subfolder"
+- No file metadata: "How big is this file? When was it uploaded?"
+
+*Missing endpoints*:
+
+| Verb   | Endpoint                  | Description          |
+|--------+---------------------------+----------------------|
+| GET    | /api/v1/files/{id}        | List uploaded files  |
+| DELETE | /api/v1/files/{id}/{file} | Delete specific file |
+| PUT    | /api/v1/files/{id}/{file} | Update/replace file  |
+
+
+** Prompt Claude to take on API Server Persona
+
+There's no better way to find holes in an API design than to try making
+requests against it. Here too, Claude can help us before we even write a
+single line of code. Here is the chat prompt that Prof. White used to make
+Claude act like an API server:
+
+#+begin_quote
+  Act as the API you suggested in *Design 1*. I will type in pseudo-http
+  requests and you will respond with an HTTP response like a server would.
+  Show me some sample HTTP requests I can send you.
+#+end_quote
+
+Prof. White refers to this as the /Persona Pattern/. We can prompt Claude
+to take on a /persona/, in this case the API server from *Design 1*
+(resource-oriented classic REST). Claude will act like an implementation
+of the API server. This is a form of rapid prototyping.
+
+** Claude's response as the API Server Persona
+
+I'll act as the API server using *Design 1*. Here are some sample HTTP
+requests you can send me:
+
+*** Create a new job
+
+#+begin_src text
+  POST /api/v1/jobs
+  Content-Type: application/json
+
+  {
+    "task": "Create a simple Python web server",
+    "files": [],
+    "timeout": 300
+  }
+#+end_src
+
+*** List jobs
+
+#+begin_src text
+  GET /api/v1/jobs
+#+end_src
+
+*** Get specific job details
+
+#+begin_src text
+  GET /api/v1/jobs/job_12345
+#+end_src
+
+
+** Interaction with the mock API server (Claude)
+
+Next, Prof. White submitted the following HTTP request in a chat with
+Claude:
+
+#+begin_src js
+  POST /api/v1/jobs
+  Content-Type: application/json
+
+  {
+    "task": "Create a simple Python web server",
+    "files": [],
+    "timeout": 300
+  }
+#+end_src
+
+And Claude returns the following response:
+
+#+begin_src js
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  location: /api/v1/jobs/job_a7b3c9d1
+
+  {
+    "id": "job_a7b3c9d1",
+    "status": "queued",
+    "task": "Create a simple Python web server",
+    "created_at": "2025-07-16T14:23:45Z",
+    "updated_at": "2025-07-16T14:23:45Z",
+    "timeout": 300,
+    "files": [],
+    "progress": 0,
+    "estimated_duration": null,
+    "links": {
+      "self": "/api/v1/jobs/job_a7b3c9d1",
+      "logs": "/api/v1/jobs/job_a7b3c9d1/logs",
+      "artifacts": "/api/v1/jobs/job_a7b3c9d1/artifacts",
+      "files": "/api/v1/jobs/job_a7b3c9d1/files"
+    }
+  }
+#+end_src
+
+Notice that Prof. White was able to get this well-formed HTTP response
+without writing any code or mocking.
+
+Next Prof. White submits an HTTP request to check if the job which we
+just "created" exists:
+
+#+begin_src js
+  GET /api/v1/jobs/job_a7b3c9d1
+#+end_src
+
+Here is Claude's response:
+
+#+begin_src js
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+
+  {
+      "id": "job_a7b3c9d1",
+      "status": "completed",
+      "task": "Create a simple Python web server",
+      "created_at": "2025-07-16T14:23:45Z",
+      "updated_at": "2025-07-16T14:24:12Z",
+      "started_at": "2025-07-16T14:23:47Z",
+      "completed_at": "2025-07-16T14:24:12Z",
+      "timeout": 300,
+      "files": [],
+      "progress": 100,
+      "duration": 25,
+      "exit_code": 0,
+      "summary": "Successfully created a Python web server using Flask with basic routing and error handling",
+      "artifacts": [
+          {
+              "name": "server.py",
+              "size": 1248,
+              "type": "application/x-python",
+              "created_at": "2025-07-16T14:24:08Z",
+          }
+      ]
+  }
+#+end_src
+
+
+Next Prof. White makes a GET request to check the logs for ~job_a7b3c9d1~
+
+#+begin_src text
+  GET /api/v1/jobs/job_a7b3c9d1/logs
+#+end_src
+
+And here is Claude's response:
+
+#+begin_src js
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+
+  {
+      "job_id": "job_a7b3c9d1",
+      "logs": [
+          {
+              "timestamp": "2025-07-16T14:23:47Z",
+              "level": "INFO",
+              "message": "Starting job execution: Create a simple Python web server",
+          },
+          {
+              "timestamp": "2025-07-16T14:23:48Z",
+              "level": "INFO",
+              "message": "Analyzing task requirements...",
+          },
+          {
+              "timestamp": "2025-07-16T14:23:50Z",
+              "level": "INFO",
+              "message": "Planning implementation: Flask-based web server with basic routing",
+          },
+          ...
+      ]
+  }
+#+end_src
+
+Claude's simulation is quite faithful, and the responses seem authentic as
+if they are being returned from an /actual/ API server! Claude is using the
+context it was provided with above to craft its responses as an API server.
+
+
+** Conclusions
+
+Claude is really good at presenting solutions that are well-known or
+/average/. That can be a good thing, because LLM's can more quickly
+understand code that follows best practices or popular formats.
+
+The /Persona Pattern/ can be thought of as a /super-mock/. This same
+pattern can be used to play a Role-Playing game with the LLM. At each step,
+describe to me what I see on the screen, and the LLM will react to your
+input at each step. And perhaps you could even come up with some way
+using Claude Artifacts where Claude could actually render the screens
+for you on-the-fly.
+
+Using the /Persona Pattern/ you can "battle test" and think through designs
+and then throw them away to test another one in a rapid prototyping
+process.
+
+This is much better than burning a massive amount of tokens to build
+something which in hindsight has design flaws. Much better to discover
+these flaws during the rapid prototyping phase!
