@@ -2,14 +2,14 @@
 #+SUBTITLE: rapid prototyping and personas
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
-#+DESCRIPTION: design API routes
-#+KEYWORDS: LLM, claude code, prompting, design principles
+#+DESCRIPTION: rapid prototyping of REST API design
+#+KEYWORDS: LLM, claude code, prompting, rapid prototyping
 #+LANGUAGE: en
 
 * Summary
 
 - Created on: [2025-07-27 Sun]
-- Last Updated: [2025-07-27 Sun 01:52]
+- Last Updated: [2025-07-27 Sun 18:40]
 
 In this lecture, Prof. White illustrates the use of chatting with Claude
 to help design the API interface.
