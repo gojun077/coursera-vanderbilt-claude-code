@@ -229,21 +229,21 @@ And Claude returns the following response:
   location: /api/v1/jobs/job_a7b3c9d1
 
   {
-    "id": "job_a7b3c9d1",
-    "status": "queued",
-    "task": "Create a simple Python web server",
-    "created_at": "2025-07-16T14:23:45Z",
-    "updated_at": "2025-07-16T14:23:45Z",
-    "timeout": 300,
-    "files": [],
-    "progress": 0,
-    "estimated_duration": null,
-    "links": {
-      "self": "/api/v1/jobs/job_a7b3c9d1",
-      "logs": "/api/v1/jobs/job_a7b3c9d1/logs",
-      "artifacts": "/api/v1/jobs/job_a7b3c9d1/artifacts",
-      "files": "/api/v1/jobs/job_a7b3c9d1/files"
-    }
+      "id": "job_a7b3c9d1",
+      "status": "queued",
+      "task": "Create a simple Python web server",
+      "created_at": "2025-07-16T14:23:45Z",
+      "updated_at": "2025-07-16T14:23:45Z",
+      "timeout": 300,
+      "files": [],
+      "progress": 0,
+      "estimated_duration": null,
+      "links": {
+          "self": "/api/v1/jobs/job_a7b3c9d1",
+          "logs": "/api/v1/jobs/job_a7b3c9d1/logs",
+          "artifacts": "/api/v1/jobs/job_a7b3c9d1/artifacts",
+          "files": "/api/v1/jobs/job_a7b3c9d1/files"
+      }
   }
 #+end_src
 
