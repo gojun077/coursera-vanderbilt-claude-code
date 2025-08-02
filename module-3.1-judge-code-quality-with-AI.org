@@ -26,36 +26,36 @@ this knowledge to have =claude= check its own work.
   dimensions.
 #+end_src
 
-The following is the rubric returned by DeepSeek in a ~markdown~ table:
+The following is the rubric returned by DeepSeek in table format:
 
-#+begin_src markdown
-  |Dimension|Weight|Score (1-5)|Notes|
-  |:-------:|:----:|:---------:|:---:|
-  |Functionality|30%|5|Correctly implements JSON storage|
-  |Error Handling|25%|5|Comprehensive exception handling|
-  |Code Readability|20%|5|Clean, well-commented code|
-  |Parameter Flexibility|10%|4|Default filename but customizable|
-  |Return Value|10%|4|Returns success status|
-  |Line Count Compliance|5%|5|Exactly 20 lines as requested|
-  |**Total**|100%|4.8|Excellent solution overall|
-#+end_src
+
+| Dimension             | Weight | Score (1-5) | Notes                             |
+|-----------------------+--------+-------------+-----------------------------------|
+| Functionality         |    30% |           5 | Correctly implements JSON storage |
+| Error Handling        |    25% |           5 | Comprehensive exception handling  |
+| Code Readability      |    20% |           5 | Clean, well-commented code        |
+| Parameter Flexibility |    10% |           4 | Default filename but customizable |
+| Return Value          |    10% |           4 | Returns success status            |
+| Line Count Compliance |     5% |           5 | Exactly 20 lines as requested     |
+|-----------------------+--------+-------------+-----------------------------------|
+| **Total**             |   100% |         4.8 | Excellent solution overall        |
 
 In Prof. White's example, the rubric is a bit more detailed:
 
-#+begin_src markdown
-  |Dimension       |Weight|Description                                                                  |
-  |---------------|------|------------------------------------------------------------------|
-  |Functionality  |High   |Does it correctly store data as JSON? Handles the core requirement? |
-  |Error Handling |High   |Gracefully handles invalid JSON, file errors, type mismatches        |
-  |Code Quality   |Medium |Clean, readable, follows Python conventions (PEP8)                    |
-  |Flexibility    |Medium |Adaptable to different use cases, configurable parameters            |
-  |Performance    |Medium |Efficient memory usage, appropriate for the task scope                |
-  |Documentation  |Medium |Clear docstrings, helpful comments, self-documenting code            |
-  |Security        |Medium |Safe file operations, input validation, no obvious vulnerabilities  |
-  |Maintainability|Medium |Easy to modify, extend, or debug                                          |
-  |Line Efficiency|Low     |Makes efficient use of the 20-line constraint                          |
-  |Best Practices |Low     |Follows Python idioms, proper imports, context managers              |
-#+end_src
+
+| Dimension       | Weight | Description                                                         |
+|-----------------+--------+---------------------------------------------------------------------|
+| Functionality   | High   | Does it correctly store data as JSON? Handles the core requirement? |
+| Error Handling  | High   | Gracefully handles invalid JSON, file errors, type mismatches       |
+| Code Quality    | Medium | Clean, readable, follows Python conventions (PEP8)                  |
+| Flexibility     | Medium | Adaptable to different use cases, configurable parameters           |
+| Performance     | Medium | Efficient memory usage, appropriate for the task scope              |
+| Documentation   | Medium | Clear docstrings, helpful comments, self-documenting code           |
+| Security        | Medium | Safe file operations, input validation, no obvious vulnerabilities  |
+| Maintainability | Medium | Easy to modify, extend, or debug                                    |
+| Line Efficiency | Low    | Makes efficient use of the 20-line constraint                       |
+| Best Practices  | Low    | Follows Python idioms, proper imports, context managers             |
+
 
 Prof. White then had Claude use the above rubric to grade two different
 implementations of the 20-line Python function and Claude chose a winner
