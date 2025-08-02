@@ -1,0 +1,59 @@
+#+TITLE: Module 4.1 Claude.md
+#+SUBTITLE: persistent global context
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: how to use CLAUDE.md with Claude Code
+#+KEYWORDS: gen AI, LLM, claude, prompting, markdown, CLAUDE.md
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-02 Sat]
+- Last Updated on: [2025-08-02 Sat 18:33]
+
+In ~CLAUDE.md~ you can specify to Claude Code coding style (i.e. use SOLID
+principles for OOP), conventions to follow when developing new features
+(i.e. create a new feature branch according to certain naming conventions),
+etc. Context provides specificity without micro-management and still allows
+the AI leeway to make design decisions. We are always engaged in a
+balancing act between giving too much context (over constraining the model)
+and too little.
+
+* Topics
+
+** =/init= generate ~CLAUDE.md~ for repo
+
+If a ~CLAUDE.md~ doesn't already exist in your repo, =/init= in Claude Code
+will generate one for you. When this command is executed, Claude will
+examine the repo structure and peruse all source files in your repo and
+record summary findings in ~CLAUDE.md~. Once this file has been generated,
+you definitely want to go through it and make edits.
+
+You will want to add context to this file that you want the AI to have,
+such as process info for creating new features and what coding style to
+use, etc. Because LLM models are non-deterministic, there is no guarantee
+that Claude will actually follow your directives in ~CLAUDE.md~, but adding
+this context certainly improves the odds that Claude will head in the
+direction that you wish to steer it in.
+
+** Emphasizing directives in ~CLAUDE.md~
+
+In the lecture example, Prof. White made the following directive for Claude
+to use /SOLID/ design principles for OOP:
+
+#+begin_quote
+ *IMPORTANT!!!: DO THIS FOR ALL CODE.*
+
+Whenever you write code, it MUST follow the SOLID design principles. Never
+write code that violates these principles. If you do, you will be asked to
+refactor it.
+#+end_quote
+
+
+** Conclusion
+
+You don't want to have a 1000-line ~CLAUDE.md~. This global context file
+should only contain /essential/ information, i.e. coding style, processes
+that should be followed in the repo, etc. It acts as /institutional memory/
+for every single prompt but it is not the right place for all kinds of
+context.
