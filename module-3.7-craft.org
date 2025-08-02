@@ -2,14 +2,14 @@
 #+SUBTITLE: 2nd stage of 'chat, craft, and scale' process
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
-#+DESCRIPTION: 
+#+DESCRIPTION: use Claude chat to craft prompts for Claude Code
 #+KEYWORDS: LLM, claude code, prompting,
 #+LANGUAGE: en
 
 * Summary
 
 - Created on: [2025-07-27 Sun]
-- Last Updated: [2025-07-27 Sun 18:41]
+- Last Updated: [2025-08-02 Sat 22:35]
 
 The *craft* stage of /chat, craft and scale/ entails implementation,
 details like what libraries to use, project folder structure, project
@@ -641,6 +641,6 @@ Claude's responses are below:
 
 Now we have generated much of the implementation details and also prompts
 that we can feed to Claude Code. We are not micromanaging the AI line by
-line of code, but are crafting constraints, style, and creating guidelines
+line of code, but are crafting constraints, style guides, and guidelines
 for our big prompt to improve the chances that Claude will build what we
 want it to build.
