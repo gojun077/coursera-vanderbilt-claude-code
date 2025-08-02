@@ -1,0 +1,299 @@
+#+TITLE: Module 4.3 Claude Code Commands
+#+SUBTITLE: Reusable Targeted Context & Process
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: T-A-R-G-E-T-E-D framework
+#+KEYWORDS: gen AI, LLM, claude, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-02 Sat]
+- Last Updated: [2025-08-02 Sat 22:21]
+
+In this lecture, Prof. White discusses how to give Claude targeted context
+to avoid overwhelming it with extraneous information that is not helpful
+for focused tasks. For this we can use Claude Code commands, which are
+markdown files defined under =.claude/commands/= in your repo or globally
+in =~/.claude/commands=. They are also referred to as /slash commands/
+because they are accessible via the Claude Code CLI interface by typing
+=/<commandName>=. Built-in slash commands include:
+
+- =/init= Create a ~CLAUDE.md~ in a repo if it doesn't exist
+- =/review= request a code review
+- =/help= show Claude Code help menu
+- =/cost= show token use statistics
+- =/memory= edit ~CLAUDE.md~ memory files
+- =/vim= toggle vim mode for alternating insert and command modes
+- =/compact [instructions]= compact conversation
+  + optional focus instructions
+
+https://docs.anthropic.com/en/docs/claude-code/slash-commands
+
+* Topics
+
+** Code Review custom command example
+
+To create a custom command, first create a =.claude/commands/= folder in
+your repo. Then create a markdown file containing directives (prompts) for
+your command, i.e. =.claude/commands/some_command.md=.
+
+Prof. White uses /Code Review/ as an example of a repetitive task that
+you can define as a Claude Code command.
+
+#+begin_src markdown
+  .claude/commands/code_review.md
+  ====================================
+
+  Carefully perform a code review of: `$ARGUMENTS`
+
+  Examples of excellent code that you should try to match the design / style
+  / conventions of are:
+
+  `app/page.tsx`
+
+  First, read a file that is closest to whatever code you are evaluating and
+  then identify its core design, style, coding, and other principles. Then,
+  create a detailed critique of the code based on these principles and output
+  it to `<file_name>.review.md` for each file you review.
+#+end_src
+
+Above, you can see the placeholder ~$ARGUMENTS~ which will be filled in by
+Claude Code. Also, we are using a template ~<file_name>.review.md~ so that
+Claude will generate review files according to a naming pattern we have
+defined.
+
+Now within the Claude Code CLI interface, you can invoke your new command
+with =/code_review [nameOfFile]=. For example, if I invoke =/code_review
+CategoryManager.tsx=, ~CategoryManager.tsx~ will be passed to =$ARGUMENTS=
+in the prompt in ~code_review.md~
+
+Here are the results of running our custom command:
+
+#+begin_src markdown
+  - I'll perform a code review of `CategoryManager.tsx`. Let me start by
+    examining the example code and then the file to review.
+
+  - Update Todos
+    + Read app/page.tsx to understand design patterns and conventions
+    + Read CategoryManager.tsx to analyze the code
+    + Write review to CategoryManager.tsx.review.md
+    + Identify design principles from app/page.tsx
+    + Create detailed critique based on identified principles
+
+  ## Conclusion
+
+  While `CategoryManager.tsx` follows many good practices, it deviates from
+  the established patterns in `app/page.tsx` in several key areas. The main
+  improvements needed are:
+
+  1. Consistency in state management patterns
+  2. Better type safety without `any` assertions
+  3. Following the established event handler naming conventions
+  4. Breaking down the component into smaller, focused sub-components
+  5. Adding proper error handling and loading states
+
+  These changes would bring the component more in line with the codebase's
+  established patterns and improve maintainability.
+
+  Do you want to create `CategoryManager.tsx.review.md`?
+  ❯ 1. Yes
+    2. Yes, and don't ask again this session (shift+tab)
+    3. No, and tell Claude what to do differently (esc)
+#+end_src
+
+** TARGETED Framework
+
+While ~CLAUDE.md~ provides global context for every interaction, commands
+deliver targeted context and process for specific, repeatable tasks. Think
+of commands as specialized instruction sets that give Claude Code exactly
+what it needs to know for particular workflows - without overwhelming it
+with irrelevant information.
+
+*The TARGETED Framework for Command Design*
+
+Use this acronym to create effective commands:
+
+- *T*-ask-Specific Instructions
+- *A*-rguments and Placeholders
+- *R*-eusable Process Steps
+- *G*-uided Examples and References
+- *E*-xplicit Output Requirements
+- *T*-emplate-Based Naming
+- *E*-rror Handling and Edge Cases
+- *D*-ocumentation and Context
+
+*** Core Principles
+
+*1. Right Context at the Right Time*
+
+Commands solve the "400-page manual" problem by providing only the relevant
+context needed for a specific task, avoiding information overload.
+
+*2. Reusable Consistency*
+
+Commands ensure the same high-quality process is followed every time a task
+is performed, scaling your best practices across your AI labor.
+
+*3. Template-Driven Automation*
+
+Use placeholders and templates to make commands flexible while maintaining
+structure and naming conventions.
+
+*** Command Structure and Location
+
+Commands are stored as markdown files in =.claude/commands/= directory:
+
+- Project-specific: =.claude/commands/= (versioned with your project)
+- Global commands: =~/.claude/commands/= (available across all projects)
+
+** Command Management Tips
+
+*Organization Strategies*
+
+- *By Function*
+  - ~plan-feature.md~
+  - ~impl-api.md~
+  - ~test-unit.md~
+  - ~deploy-prod.md~
+  - ...
+- *By Domain*
+  - ~auth-login.md~
+  - ~user-profile.md~
+  - ~payment-process.md~
+  - ~order-create.md~
+  - ...
+- *By Role*
+  - ~dev-review.md~
+  - ~qa-automation.md~
+  - ~ops-deploy.md~
+  - ~pm-requirements.md~
+  - ...
+
+*Version Control*
+- Store project commands in =.claude/commands/= for team sharing
+- Use descriptive commit messages when updating commands
+- Review command changes as part of code review process
+
+*Command Evolution*
+- Regularly review and update commands based on team feedback
+- Archive outdated commands rather than deleting them
+- Document command changes in project changelog
+
+Commands transform Claude Code from a general assistant into a specialized
+team member with deep knowledge of your specific workflows. They ensure
+consistent, high-quality execution of repetitive tasks while providing the
+targeted context needed for complex operations.
+
+** More custom command examples
+
+These commands are not meant to be used "as-is". You should take them and
+adapt them for your project. The goal is to provide inspiration for what a
+command might look like, not what it should look like. The best commands
+will be customized to your specific project.
+
+*** Example 1: Code Review Command
+
+File: =.claude/commands/code-review.md=
+
+#+begin_src markdown
+  # Code Review Command
+
+  Carefully perform a comprehensive code review of $ARGUMENTS.
+
+  ## Review Standards
+  Examples of excellent code that you should match the design/style/conventions of:
+  - `src/components/UserProfile/UserProfile.tsx` (React components)
+  - `src/utils/dataValidation.ts` (utility functions)
+  - `src/hooks/useUserData.ts` (custom hooks)
+
+  ## Process
+  1. **First**: Read the example files above to understand our design
+     patterns, naming conventions, and code style
+  2. **Second**: Analyze $ARGUMENTS against these standards
+  3. **Third**: Create detailed critique covering:
+     - Code structure and organization
+     - Adherence to established patterns
+     - Performance considerations
+     - Security implications
+     - Maintainability concerns
+     - Test coverage gaps
+
+  ## Output Requirements
+  - Save review as `ai-code-reviews/{filename}.review.md` for each file
+    reviewed
+  - Include specific line references for issues
+  - Provide concrete suggestions for improvements
+  - Rate overall quality: Excellent/Good/Needs Improvement/Poor
+  - Estimate refactoring effort: Low/Medium/High
+
+  ## Review Checklist
+  - Follows project naming conventions
+  - Proper error handling implemented
+  - No hardcoded values, secrets, or magic numbers
+  - Appropriate comments and documentation
+  - Follows existing design principles and consistent with exemplars
+  - No obvious security vulnerabilities
+  - Performance optimizations considered
+#+end_src
+
+*** Example 2: API Test
+
+File: =.claude/commands/api-test=
+
+#+begin_src markdown
+  # API Testing Command
+
+  Create comprehensive API tests for: $ARGUMENTS
+
+  ## Testing Strategy
+  Test the following API endpoints and scenarios based on $ARGUMENTS:
+
+  1. **Happy Path Testing**:
+     - Valid request formats
+     - Expected response structures
+     - Proper HTTP status codes
+
+  2. **Error Handling Testing**:
+     - Invalid request payloads
+     - Authentication failures
+     - Authorization edge cases
+     - Rate limiting scenarios
+
+  3. **Edge Cases**:
+     - Boundary value testing
+     - Large payload handling
+     - Concurrent request handling
+     - Network timeout scenarios
+
+  ## Test Structure Template
+  Create tests in `/tests/api/{endpoint-name}.test.ts`:
+
+  ```typescript
+  describe('{Endpoint Name} API', () => {
+    describe('POST /{endpoint}', () => {
+      it('should create {resource} with valid data', async () => {
+        // Test implementation
+      });
+
+      it('should return 400 for invalid data', async () => {
+        // Test implementation
+      });
+
+      it('should require authentication', async () => {
+        // Test implementation
+      });
+    });
+
+    describe('GET /{endpoint}', () => {
+      // Additional test cases
+    });
+  });
+#+end_src
+
+** Conclusion
+
+Claude Code commands enable us to re-use prompts, inject targeted context,
+and targeted process to the LLM. One thing you should try is to ask Claude
+Code to analyze your project and ask it to dream up valuable commands and
+prompts you can save as custom commands.
