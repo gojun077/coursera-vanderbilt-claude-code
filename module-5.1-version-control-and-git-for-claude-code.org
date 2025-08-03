@@ -1,0 +1,262 @@
+#+TITLE: Module 5.1 VCS and git for Claude Code
+#+SUBTITLE: use 'git branch' to manage AI code contributions
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: Claude Code and git VCS
+#+KEYWORDS: gen AI, LLM, claude, claude code, prompting, markdown, git
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-03 Sun]
+- Last Updated: [2025-08-03 Sun 15:28]
+
+VCS like =git= are invaluable for managing the code contributions made by
+Claude because you can easily select between feature branches, rollback
+changes, cherry-pick commits between branches, or even merge
+branches. Without version control, you might accidentally code yourself
+into a corner and have to start over.
+
+You should place a prompt within your ~CLAUDE.md~ file that tells Claude
+how it should use =git branch= when working on a feature. Here is Prof.
+White's example prompt within ~CLAUDE.md~:
+
+#+begin_quote
+*IMPORTANT*
+
+Before you make any change, create and checkout a feature branch named
+=feature_some_short_name=. Make and then commit your changes in this
+branch.
+#+end_quote
+
+This should probably be the first thing you place in your ~CLAUDE.md~!
+It is also helpful to specify a branch-naming convention that makes it
+clear when an AI has created a branch, i.e. =AI_feature_some_short_name=.
+
+* Topics
+
+** Commit messages written by Claude
+
+In your prompt telling Claude about the =git branch= strategy in your repo,
+you can also tell Claude about how it should write commit messages. You can
+also tell Claude to run =git log= and look at examples of existing commit
+messages to learn from.
+
+** Claude Code Parallelism with =git worktree=
+
+From the =git worktree= man page:
+
+#+begin_quote
+=git-worktree= - Manage multiple working trees
+
+Manage multiple working trees attached to the same repository.
+
+A git repository can support multiple working trees, allowing you to
+checkout more than one branch at a time. With git worktree add a new
+working tree is associated with the repository, along with additional
+metadata that differentiates that working tree from others in the same
+repository. The working tree, along with this metadata, is called a
+"worktree".
+
+This new worktree is called a "linked worktree" as opposed to the "main
+worktree" prepared by =git init= or =git clone=. A repository has one main
+worktree (if it’s not a bare repository) and zero or more linked
+worktrees. When you are done with a linked worktree, remove it with =git
+worktree remove=.
+
+In its simplest form, =git worktree add <path>= automatically creates a new
+branch whose name is the final component of =<path>=. For instance, =git
+worktree add ../hotfix= creates new branch =hotfix= and checks it out at
+path =../hotfix=
+
+To instead work on an existing branch in a new worktree, use =git worktree
+add <path> <branch>=
+#+end_quote
+
+*** Parallel Development in Isolation
+
+Git worktrees combined with Claude Code create a powerful workflow for
+parallel development. Instead of juggling multiple branches on a single
+working directory, you can have multiple isolated environments where
+different Claude Code instances work simultaneously on separate features
+without any conflicts.
+
+*What Are Git Worktrees?*
+
+Git worktrees allow you to check out multiple branches from the same
+repository into separate directories. Each worktree has its own working
+directory with isolated files, while sharing the same Git history and
+reflog.
+
+Think of it this way:
+
+- *Traditional workflow*: One working directory, switch between branches
+- *Worktree workflow*: Multiple working directories, each with its own
+  branch
+
+*Setting Up Parallel Development Environments*
+
+/Creating Your First Worktree/
+
+Let's say you're working on your expense tracker app and need to develop
+two features simultaneously: a data export system and an analytics
+dashboard.
+
+You could ask Claude Code to create the worktrees on your behalf with the
+following prompt:
+
+#+begin_src markdown
+  I want to develop two features in parallel for my expense tracker app using
+  Git worktrees:
+
+  1. Data export system (CSV, PDF, JSON exports)
+  2. Analytics dashboard (charts, insights, trends)
+
+  Please help me set up the worktree environment:
+  1. Create a worktree for the export feature at `../expense-tracker-export`
+     with branch `feature/data-export`
+  2. Create a worktree for the analytics feature at
+     `../expense-tracker-analytics` with branch `feature/analytics-dashboard`
+  3. List all worktrees to confirm they were created
+  4. Explain what each worktree will contain and how they're isolated
+
+  I want to be able to work on both features simultaneously without
+  conflicts.
+#+end_src
+
+Or you could manually create the worktree and new branches with the
+following git commands:
+
+#+begin_src sh
+  git worktree add -b feature/data-export ../expense-tracker-export
+  git worktree add -b feature/analytics-dashboard \
+    ../expense-tracker-analytics
+  git worktree list
+#+end_src
+
+Your directory structure now looks something like:
+- =/expense-tracker-ai/=  Main worktree
+  + main branch
+- =/expense-tracker-export/=  Export worktree
+  + ~feature/data-export~ branch
+- =/expense-tracker-analytics/=  Analytics worktree
+  + ~feature/analytics-dashboard~ branch
+
+*Launching Claude Code in Each Worktree*
+
+Each worktree is a complete, independent development environment. Now, open
+two different terminal windows and start Claude Code in each of the
+separate worktrees:
+
+#+begin_src sh
+  # terminal 1
+  cd ../expense-tracker-export
+  claude
+#+end_src
+
+#+begin_src sh
+  # terminal 2
+  cd ../expense-tracker-analytics
+  claude
+#+end_src
+
+/You can now safely run Claude Code in parallel to develop multiple expense
+tracker features simultaneously./ Each worktree operates in complete
+isolation - changes made in one worktree won't affect the others, and you
+can test each feature independently without any conflicts. This means you
+can have Claude working on your export system in one terminal while
+simultaneously developing the analytics dashboard in another, all without
+the risk of breaking existing functionality or interfering with each
+other's work. The parallel development approach allows you to make rapid
+progress on multiple fronts while maintaining clean, conflict-free code.
+
+** Merging Worktree features back to main
+
+*Prerequisites*
+- You have completed features in separate worktrees
+- Features are committed and working in their respective branches
+- Yo're in the main project directory on the original branch you built
+  worktrees off of
+- Stop Claude Code in each of the separate terminals so that you don't
+  confuse yourself!
+- Run Claude Code in the main project directory on the original branch
+
+This is Prof. White's sample prompt asking Claude Code to handle the
+merge of two worktrees into a new integration branch.
+
+#+begin_src markdown
+  I have two features developed in parallel worktrees that I need to integrate:
+  - `feature/data-export` (export functionality)
+  - `feature/analytics-dashboard` (analytics functionality)
+
+  Please help me integrate these features:
+  1. Create a new integration branch called `integration/export-analytics`
+  2. Merge `feature/data-export` into the integration branch
+  3. Merge `feature/analytics-dashboard` into the integration branch
+  4. Resolve any merge conflicts that arise
+  5. Test that both features work together
+  6. Run all tests to ensure nothing is broken
+
+  I want to integrate these safely before merging to `main`.
+#+end_src
+
+Or you could handle this yourself using the following git commands:
+
+#+begin_src sh
+  # navigate to your main worktree
+  cd ../expense-tracker-ai
+  git checkout -b integration/export-analytics
+  git merge feature/data-export
+  # manually fix any merge conflicts
+  git merge feature/analytics-dashboard
+  # manually fix any merge conflicts
+  git worktree remove ../expense-tracker-export
+  git worktree remove ../expense-tracker-analytics
+#+end_src
+
+** Make these reusable Claude Code commands
+
+*** Parallel Work Command
+
+Save this as =.claude/commands/parallel-work.md=
+
+#+begin_src markdown
+  I want to develop features in parallel for my expense tracker app using Git
+  worktrees: $ARGUMENTS
+
+  Think about how to divide the work up into separate features unless this
+  has been clearly explained already.
+
+  Please help me set up the worktree environment:
+  1. For each feature mentioned, create a worktree at
+  `../expense-tracker-[feature-name]` with branch `feature/[feature-name]`
+  2. Set up the development environment in each worktree
+  3. List all worktrees to confirm they were created
+  4. Explain what each worktree will contain and how they're isolated
+
+  I want to be able to work on all features simultaneously without conflicts.
+#+end_src
+
+*** Integration Command
+
+Save this as =.claude/commands/integrate-parallel-work.md=
+
+#+begin_src markdown
+  I have features developed in parallel worktrees that I need to integrate:
+  `$ARGUMENTS`
+
+  Please help me integrate these features:
+  1. Create a new integration branch called `"integration/parallel-features"`
+  2. For each feature name provided, merge the branch
+     `feature/[feature-name]` into the integration branch
+  3. Resolve any merge conflicts that arise
+  4. Test that all features work together
+  5. Run all tests to ensure nothing is broken
+  6. Once integration is successful, merge to `main` and clean up branches
+
+  I want to integrate these safely before merging to `main`.
+#+end_src
+
+*Example Command Usage*:
+
+=/integrate-parallel-work budget-tracking notifications user-settings=
