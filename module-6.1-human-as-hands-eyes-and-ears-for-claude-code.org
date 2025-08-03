@@ -1,0 +1,54 @@
+#+TITLE: Module 6.1 Acting as Hands, Eyes, Ears for Claude
+#+SUBTITLE: giving human feedback to Claude
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: try to automate the feedback process as much as possible
+#+KEYWORDS: gen AI, LLM, claude, code quality, testing
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-03 Sun]
+- Last Updated: [2025-08-03 Sun 22:34]
+
+After we have finished writing code, we build our program, check for error
+messages, run tests, and finally run the program to see if it works
+correctly. In the case of a GUI app, we will interact with the UI and make
+sure it does what we want it to do and if people like it. If all these
+steps pass, then we can keep the changes we have made, otherwise we go back
+and try to fix bugs or implement features that users will like better.  But
+the key point in this process is to get feedback about our program.
+
+Claude Code can help us by giving feedback. For example, Claude Code can
+build, compile, and run test suites on our code if we tell it to. But for
+domains that are hard for us to automate, or when we have not yet set up
+the automation infrastructure, you, the human will have to play the role of
+acceptance tester and be the /hands, eyes, and ears/ for Claude to give it
+feedback.
+
+If you have not setup browser automation for running end-to-end UI tests of
+your web app, you will have to actually click on elements in your web page
+to validate functionality or walk through the login /happy path/ to make
+sure that user auth is working, for instance.
+
+Let's say when you click on some UI element, you notice in the web browser
+developer console that you are getting a Javascript error. You would then
+copy and paste this into the Claude Code terminal session to provide this
+feedback to Claude. You can also pass screen shots of your web page to
+Claude Code (on some systems you can use drag-and-drop, on others, you can
+simply provide the file path to the screenshot). Of course when reporting
+the error, you want to provide relevant context like, "This error occurred
+when I clicked on button /foo/".
+
+* Topics
+
+** Minimizing Claude's dependence on the /human in the loop/
+
+The problem with you becoming Claude's /hands, eyes, and ears/ is that
+you are now the bottleneck for scaling up AI labor.
+
+Yes, when you are doing exploratory, ad-hoc testing of your UI, it can be
+OK to act as /hands, eyes, and ears/ but ultimately, you want to automate
+this process as much as possible. For example, you could write
+=playwright=, =puppeteer=, or =selenium= browser scripts that could test
+Critical User Journeys (CUJ) and then add these tests to your test suite.

@@ -2,7 +2,7 @@
 #+SUBTITLE: parallel execution with subagents in git worktrees
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
-#+DESCRIPTION: 
+#+DESCRIPTION: parallel feature development using sub-agents
 #+KEYWORDS: gen AI, LLM, claude, claude code, subagents, parallel execution
 #+LANGUAGE: en
 
