@@ -1,0 +1,173 @@
+#+TITLE: Module 4.4 In-Context Learning
+#+SUBTITLE: Teaching with Examples
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: telling the AI to read code to gain context
+#+KEYWORDS: gen AI, LLM, claude, claude code, prompting, markdown
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-03 Sun]
+- Last Updated: [2025-08-03 Sun 14:34]
+
+In this lecture, Prof. White discusses important context that the AI can
+glean just from reading project code. Much of the information available
+from reading code, such as coding style, architectural design, naming
+conventions, etc. might not be explicitly documented. But once you gain
+this context, you can then emulate it. The same holds true for AI.
+
+When we teach other human beings, we often teach by example. To teach
+programmers, we often use examples of good code, and when teaching writers,
+we assign readings from the great authors in history. Claude Code can also
+/learn/ in the same way, and teaching by example can be more concise and
+effective than a prescriptive list of DO's and DON'Ts.
+
+Recall in module 4.3 when we created the custom command =code_review=, we
+told Claude Code to look at ~app/page.tsx~ for an example of good design,
+style, and coding conventions for our codebase. It would be even better if
+we told Claude Code to look at multiple examples of good code that it can
+use to internalize how to write code for our particular project.
+
+Also in the prompt contained in =.claude/commands/code_review.md=, Prof.
+White told Claude what things it should look for while reading the example
+source file:
+
+#+begin_quote
+...identify its core design, style, coding, and other principles
+#+end_quote
+
+* Topics
+
+** Using Homer's Odyssey to teach writing style by example
+
+Here is Prof. White's prompt to Claude Chat to write a poem about Nashville, TN
+following the style from an excerpt of Homer's /Odyssey/:
+
+#+begin_quote
+*Write about Nashville, TN in the same style as this poem:*
+
+TELL ME, O MUSE, of that ingenious hero who traveled far and wide after he
+had sacked the famous town of Troy. Many cities did he visit, and many were
+the nations with whose manners and customs he was acquainted; moreover he
+suffered much by sea while trying to save his own life and bring his men
+safely home; but do what he might he could not save his men, for they
+perished through their own sheer folly in eating the cattle of the Sun-god
+Apollo; so the god prevented them from ever reaching home. Tell me, too,
+about all these things, oh daughter of Zeus, from whatsoever source you may
+know them.
+#+end_quote
+
+And here is Claude's output:
+
+#+begin_quote
+Now, here's a poem about Nashville in that same epic style:
+
+*An Epic Invocation to Nashville*
+
+TELL ME, O MUSE, of that melodious city which rises from the rolling hills
+of Tennessee, where the Cumberland River winds its ancient course through
+valleys rich with song. Many are the pilgrims who journey there from
+distant lands, and many are the dreamers with whose hopes and heartaches
+the city has grown acquainted; moreover they have suffered much by highway
+and by heartbreak while trying to make their voices heard and bring their
+music safely to the world; but do what they might, not all could achieve
+their dreams, for some perished through their own folly in trusting false
+prophets of fame who promised gold but delivered only glittering shadows;
+so the gods of commerce prevented many from ever reaching their destined
+glory.
+
+...
+#+end_quote
+
+As you can see, Claude is indeed able to use the writing style from the
+example we gave it from Homer's /Odyssey/ when it writes a poem about
+Nashville, a totally new topic.
+
+In a similar way, when writing code we will use examples to help Claude
+Code create code with a certain coding style gleaned from existing code
+samples from our project.
+
+In a follow-up example, Prof. White shows that Claude can also take this
+same Homeric literary style and write Python code :lol: which prints out
+the poem using Homeric function names.
+
+In one of his examples, he asks Claude to write a sorting algorithm
+using the Homeric style from the Python code generated earlier.
+
+#+begin_quote
+Read and understand the style, architecture, and coding conventions of this
+code. Now, write a sorting algorithm in the same architecture, style, and
+coding conventions.
+#+end_quote
+
+The output is pretty humorous, with function names like
+=invoke_o_muse_of_that_disordered_array()= or a list named
+=arrays_that_wandered_seeking_order=.
+
+Note that Prof. White didn't explicitly tell Claude /how/ to write in the
+epic style; Claude was able to pick this up from the examples given as
+context.
+
+Teaching by example frees us from having to declaratively spell out how to
+do something.
+
+** Exercise - Building a Documentation Generator
+
+*Objective*
+
+Build a Claude Code command that automatically generates both technical
+documentation for developers and user-friendly guides for end users when
+you add a new feature.
+
+*Setup*
+
+- Create a new command file: =.claude/commands/document-feature.md=
+
+*Your Task*
+
+Write a command that takes a feature name and generates:
+- *Developer Documentation* - Technical specs, API details, implementation
+  notes
+- *User Documentation* - Simple guide with screenshots placeholders,
+  step-by-step instructions
+
+*Command Structure*
+
+Your command should:
+
+- Accept a feature name as input
+- Analyze the relevant code files
+- Generate two separate documentation files in appropriate directories
+- Follow your project's existing documentation patterns
+- Include placeholders for screenshots in user docs
+- Add proper cross-references between the two doc types
+
+*Example Usage*
+
+Should generate:
+- =docs/dev/password-reset-implementation.md=
+- =docs/user/how-to-reset-password.md=
+
+*Bonus Points*
+- Make the command detect if the feature is frontend/backend/full-stack and
+  adjust documentation accordingly
+- Make it automatically capture and insert screenshots in user-facing
+  documentation
+- Auto-link to related existing documentation
+
+** Contribute - share example prompts and CLAUDE.md with others
+
+The power of Claude Code multiplies when we share proven patterns,
+commands, and processes. As you develop workflows that genuinely improve
+your productivity, consider contributing them back to the community. Submit
+pull requests with your most effective Claude Code commands, well-crafted
+~CLAUDE.md~ templates, innovative process documentation, and creative
+solutions to common development challenges. Whether it's a command that
+automates your testing workflow, a ~CLAUDE.md~ structure that perfectly
+captures your project context, or a process that streamlines code reviews,
+your contributions help other developers skip the trial-and-error phase and
+jump straight to productive AI-assisted development. Every shared command
+becomes a building block for the next developer's breakthrough.
+
+https://github.com/juleswhite/claude-code
