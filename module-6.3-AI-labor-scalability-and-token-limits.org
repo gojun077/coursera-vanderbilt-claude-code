@@ -1,0 +1,86 @@
+#+TITLE: Module 6.3 Scalability of AI Labor
+#+SUBTITLE: Software Design, Token Limits, and Maintainability
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: 
+#+KEYWORDS: gen AI, LLM, claude, design, scalability, maintenance
+#+LANGUAGE: en
+
+* Summary
+- Created on: [2025-08-03 Sun]
+- Last Updated: [2025-08-03 Sun 23:17]
+
+In traditional software projects, good software design with separation of
+concerns, functions with a single responsibility, composability,
+modularity, etc. makes it easy for someone to make a change and avoid
+ripple effects.
+
+Consider the following, vague prompt:
+
+#+begin_quote
+I need to create a report about expenses related to software.
+#+end_quote
+
+Without any other context, Claude Code will search the project directory to
+try to identify files that it needs to change to fulfill the prompt.
+
+If your project structure looks like
+
+#+begin_src text
+  src/
+  ├── expense-tracking/
+  ├── expense-categorization/
+  ├── financial-reporting/
+  ├── budget-managment/
+  └── user-authentication/
+#+end_src
+
+Then Claude will probably be go into the ~financial-reporting~ folder and
+search for relevant source files to edit. For small projects, Claude can
+find the files it needs to edit without too much difficulty.
+
+But in larger projects, you can't just dump all files in the project into
+Claude's context because the context window is limited (currently in Aug
+2025, the input token limit is ~256,000~ tokens/min for /Tier 1/ and
+~450,000~ tokens/min for /Tier 2/). Also, it is expensive, because we are
+billed /per-token/. Currently in Aug 2025 the cost is about $5 per
+1,000,000 input tokens for most of the frontier models.
+
+Also it is inefficient to just dump lots of files into Claude's context
+without a specific strategy in mind, because it will increase the
+processing time and the model might get side-tracked on irrelevant minutiae
+in the added context.
+
+* Topics
+
+** Token limits
+
+The AI model providers place limits on the number of tokens we can input
+to the AI as well as the number of tokens that can be output by the AI.
+
+In the example above, when we prompted Claude to create a report about
+software-related expenses, it uses a /lens/ or a context window to view a
+small subset of files at a time to ensure that it doesn't exceed its input
+token limit. Even if we wanted to dump /all/ our files in a big repo into
+the AI model, we wouldn't be able to due to the input limit.
+
+Let's consider the case in which you want to refactor a giant file with
+Claude Code.You might not be able to do it all in one go because of the
+output token limit. The output token limit is usually much smaller than
+the input token limit. As of Aug 2025, for /Tier 2/ users the output token
+limit is 90K tokens per minute.
+
+** Source code housekeeping to facilitate AI labor
+
+If your change requires one or a small number of files that can be dumped
+into the model at once without exceeding the token limit, it will be much
+easier for AI to work on your code.
+
+This means that you want to keep the size of individual source files
+within reasonable limits, preferably well below the input token limit.
+
+
+But if you have huge source files with lots of complicated dependencies
+between them, it will be much harder to scale AI workers on your code
+and much harder for the AI to make edits. This of course also applies to
+human labor that has to work on such code :sob:

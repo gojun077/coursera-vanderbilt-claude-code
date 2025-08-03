@@ -1,0 +1,48 @@
+#+TITLE: Module 6.2 Ensuring Claude checks its own work
+#+SUBTITLE: adding quality gates to CLAUDE.md
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: ensure that the AI writes and runs tests for new features
+#+KEYWORDS: gen AI, LLM, claude, code quality, testing
+#+LANGUAGE: en
+
+* Summary
+- Created on: [2025-08-03 Sun]
+- Last Updated: [2025-08-03 Sun 22:59]
+
+When we as humans write code, sometimes we get tired and cut corners. For
+instance, I might check in code that I haven't even tested. We want to
+avoid this by automating tests or perhaps adding =git= pre-commit hooks
+that run basic linting and other checks on our code.
+
+However, our AI Labor generally will not write tests for the code that it
+generates unless it is specifically prompted to do so. In this case, the
+human will be the one to discover when the code that Claude has written
+has bugs or other errors. As we covered in the previous lecture, we want
+to avoid this as much as possible.
+
+In this module, we will learn strategies to minimize the number of errors
+created by Claude that we as humans have to handle ourselves.
+
+* Topics
+
+** Basic Code Hygiene Process (Web App)
+
+1. Compile the Code
+2. Execute Tests
+3. Run the Code
+4. Interact with the UI Programmatically (integration tests)
+
+Let's add this process into ~CLAUDE.md~
+
+#+begin_src markdown
+  IMPORTANT:
+
+  1. Before you make any change, create and check out a feature branch named
+     `feature_some_short_name`. Make and commit changes in this branch.
+  2. You must write automated tests for all new code.
+  3. You must compile the code and pass ALL tests before committing.
+#+end_src
+
+If you don't have basic ground rules in your ~CLAUDE.md~ you may get
+unexpected results from Claude.
