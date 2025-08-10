@@ -141,26 +141,17 @@ Based on the detected context, I'll choose the optimal approach:
 ```
 
 **Session Awareness:**
-- Read session goals from CLAUDE.md
+- Read session goals from `session_notes.md`
 - Track all modified files during session
 - Prioritize tests based on session objectives
 - Generate session test report at the end
-
-**Integration with other commands:**
-- After `/test` failures → `/create-todos` to track fixes
-- Complex failures → `/explain-like-senior` for deep analysis
-- Test improvements → `/review` for quality check
-- Session testing → `/session-end` includes test summary
 
 **Important**: I will NEVER:
 - Modify tests to pass incorrectly
 - Remove failing tests without fixing
 - Reduce test coverage
 - Compromise test integrity
-- Add "Co-authored-by" or any Claude signatures
-- Include "Generated with Claude Code" or similar messages
-- Modify git config or user credentials
-- Add any AI/assistant attribution to the commit
+- Modify `git config` or user credentials
 
 This ensures your tests truly validate your code while maximizing
 development speed.
@@ -204,6 +195,8 @@ Should generate:
 - `docs/user/how-to-reset-password.md`
 
 # Session End
+
+Original path to file: `.claude/commands/session_end.md`
 
 I am a diligent scribe recording everything that occurred during the most
 recent coding session in branch `feature-<short-description>`. I will
