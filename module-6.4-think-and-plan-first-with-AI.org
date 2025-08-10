@@ -1,0 +1,129 @@
+#+TITLE: Module 6.4 - Having Claude Think & Plan First
+#+SUBTITLE: "think first, code second", is even more relevant today
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: measure twice, cut once
+#+KEYWORDS: gen AI, LLM, claude, design, planning
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-10 Sun]
+- Last Updated: [2025-08-10 Sun 15:28]
+
+If you plan your work in advance using Claude, you will save yourself lots
+of time and tokens (money). You can even prompt Claude to /think/ about
+problems and it will enlist the help of a separate reasoning mode. Some
+areas where Claude reasoning mode can be helpful:
+
+- identify potential issues in advance
+  + integration
+- evaluate multiple approaches
+- design robust solutions
+  + architecture
+
+* Topics
+
+** Save plans to separate files
+
+You should save the comprehensive planning documents that Claude generates
+for the benefit of team members, as a reference, and for the benefit of
+future sessions with a coding agent like Claude Code. This can be useful
+months later to for debugging, onboarding new team members, and revisiting
+architectural decisions. Some sample files you could tell Claude to record
+its plans in:
+
+- ~FEATURE_PLAN.md~
+- ~INTEGRATION_DESIGN.md~
+
+You should edit these generated files to refine the approach before giving
+Claude the go-ahead to implement your project.
+
+*** Example: Steve Yegge's =efrit= project on Github
+
+Well-known programmer, game developer, and author Steve Yegge released
+[[https://github.com/steveyegge/efrit][efrit]] in mid-2025 as part of an experiment in /vibe coding/ using Claude
+Code and Sourcegraph ~ampcode~ agentic coding tools. If you look at the
+project repo, you can see there are quite a few ~.md~ files:
+
+- AGENT.md
+- CONTRIBUTING.md
+- README.md
+- ROADMAP.md
+- SESSION_NOTES.md
+- TEST_STATUS.md
+- TODO_TRACKING.md
+
+All of these markdown files provide valuable context for coding agents.
+~ROADMAP.md~ contains an incremental plan or roadmap for feature
+development in discrete coding /sessions/ from 1 to 17+ grouped into 4
+phases:
+
+- *Phase 1: Foundation* Sessions 1 to 4
+  + 1. Elisp Syntax Validation
+  + 2. Basic Retry Logic
+  + 3. Error Context Enhancement
+  + 4. Runtime Error Recovery
+- *Phase 2: Enhanced One-off Mode* Sessions 5 to 8
+  + ...
+- *Phase 3: Agent Mode* Sessions 9 to 16
+  + ...
+- *Phase 4: Production Readiness* Sessions 17+
+
+The results of all coding sessions are logged into the file
+~SESSION_NOTES.md~, which contains the following template:
+
+#+begin_src markdown
+  ### Session N: [Title]
+  ,**Date**: YYYY-MM-DD
+  ,**Status**: [🔄 IN PROGRESS | ✅ COMPLETE | ❌ FAILED]
+  ,**Objective**: [One sentence goal]
+  ,**File(s)**: [Primary files modified]
+
+  #### Session N TODO List
+  - [ ] Task 1
+  - [ ] Task 2
+  - [ ] Task 3
+
+  #### Session N Results
+  - **What worked**:
+  - **What didn't**:
+  - **Lessons learned**:
+  - **Next session prep**:
+#+end_src
+
+In addition, at the start and end of each coding session, Steve has the
+coding agent check and update ~TODO_TRACKING.md~ containing a checklist of
+atomic coding tasks to be achieved in each session, a /Session Handoff
+Protocol/ for start and end of coding session, Estimates and Velocity
+tracking of coding tasks within each coding session, and a list of
+Dependent and Blocking tasks.
+
+** Extended Thinking Levels
+
+Claude Code's extended thinking mode provides additional computational
+resources so that it can analyze a problem in more depth. It is easier to
+point out issues in Claude Code's plans than it is to rollback poorly
+thought out code.
+
+- *think*: basic extended thinking for straightforward problems
+- *think hard*: deeper analysis for moderate complexity
+- *think harder*: comprehensive evaluation for complex scenarios
+- *ultrathink*: max thinking budget for highly complex scenarios
+
+*** Example of extended thinking prompt
+
+Think hard about how to implement a machine learning-powered expense
+categorization system that learns from user behavior and suggests
+categories automatically.
+
+1. What are the core technical challenges?
+2. What data do we need to collect and how?
+3. What ML approaches would work best for this problem?
+4. How should we handle privacy and data security?
+5. What's the user experience flow?
+6. How do we handle edge cases and errors?
+7. What's the deployment and maintenance strategy?
+
+Provide a comprehensive technical analysis before we start coding.
+Save the plan to ~development_plan.txt~
