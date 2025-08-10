@@ -1,0 +1,66 @@
+#+TITLE: Module 7.2 Process & Context over Code
+#+SUBTITLE: start by fixing the process & the context, not the code
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: priming the AI to consistently generate good code
+#+KEYWORDS: gen AI, LLM, claude, process, context
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-10 Sun]
+- Last Updated: [2025-08-10 Sun 23:55]
+
+If you use agentic coding tools long enough, you will eventually run into
+the situation in which the AI gets stuck, and fails to generate code that
+satisfies your requirements, even after multiple iterations.
+
+Your first instinct may be to feed error messages back to the AI to try to
+correct compilation or runtime errors; alternately, you could fix the
+errors yourself, but in this final module, Prof. White instead urges
+students to /program/ the AI labor itself by /programming/ the process. A
+programmer's job is no longer just about writing hand-crafted code; ideally
+we as programmers should aim to program the process and the context such
+that AI labor will produce suitable output *every time*.
+
+Why shouldn't we manually fix the errors that the AI makes? If we do this,
+we become the /human in the loop/ and are now the bottleneck for our AI
+labor. This limits the AI's scalability. Instead we want to iterate on the
+process so that over time the AI's output's become more deterministic and
+reliable thanks to better context.
+
+The following sections list the steps you should take to tweak or update
+your process for working with AI labor when it inevitably stumbles.
+
+* Topics
+
+** First, update your ~CLAUDE.md~
+
+When the AI gets stuck or generates errors, first update your ~CLAUDE.md~
+file to address the underlying cause(s).
+
+** Second, update your custom slash =/= commands
+
+Recall that the custom Claude commands reside under =.claude/commands/= in
+your project directory and are defined in markdown formatted files.
+
+Although you are using a human language like English and not a traditional
+programming language, what you are doing is /programming the process/
+every time you update ~CLAUDE.md~ and your custom commands. Recall that
+these files define repeatable actions.
+
+** Considerations while editing ~CLAUDE.md~ and custom commands
+
+- Where can I add specificity?
+- Where can I add additional instructions?
+- Where can I add additional examples of the right thing to do?
+- Where can I add important context that's missing?
+
+** Conclusion
+
+Every time you improve your ~CLAUDE.md~, custom commands, and other stored
+prompts, Claude will be able to make better decisions which will enable you
+to be a little more hands-off on the process. The more hands-off the human
+is, the more scalable the process becomes. If you are using the right
+prompts in ~CLAUDE.md~ and your custom commands, you can expect higher
+quality output from Claude Code.
