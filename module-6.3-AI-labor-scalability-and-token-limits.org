@@ -2,13 +2,13 @@
 #+SUBTITLE: Software Design, Token Limits, and Maintainability
 #+AUTHOR: Peter Jun Koh
 #+EMAIL: gopeterjun@naver.com
-#+DESCRIPTION: 
+#+DESCRIPTION: context window management
 #+KEYWORDS: gen AI, LLM, claude, design, scalability, maintenance
 #+LANGUAGE: en
 
 * Summary
 - Created on: [2025-08-03 Sun]
-- Last Updated: [2025-08-03 Sun 23:17]
+- Last Updated: [2025-08-10 Sun 15:13]
 
 In traditional software projects, good software design with separation of
 concerns, functions with a single responsibility, composability,
@@ -78,7 +78,6 @@ easier for AI to work on your code.
 
 This means that you want to keep the size of individual source files
 within reasonable limits, preferably well below the input token limit.
-
 
 But if you have huge source files with lots of complicated dependencies
 between them, it will be much harder to scale AI workers on your code
