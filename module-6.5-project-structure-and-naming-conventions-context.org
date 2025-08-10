@@ -1,0 +1,137 @@
+#+TITLE: Module 6.5 - Project Structure & Naming Conventions
+#+SUBTITLE: critical context for Claude Code scalability
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: folder and file names provide important context to AI
+#+KEYWORDS: gen AI, LLM, claude, design, scalability, context
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-10 Sun]
+- Last Updated: [2025-08-10 Sun 16:51]
+
+Although ~CLAUDE.md~ provides the basic context for a project repo to
+Claude Code, every time you give Claude some task via a prompt, it has to
+map that prompt into the project structure and code base in order to
+determine which file(s) need to be edited.
+
+The first thing Claude will see is the structure of folders and the
+directory names. When it gets a directory listing, it will be doing
+tree-based exploration.
+
+* Topics
+
+** Folder structure and naming
+
+Recall from module 6.3 we had the following directory structure:
+
+#+begin_src text
+  src/
+  ├── expense-tracking/
+  ├── expense-categorization/
+  ├── financial-reporting/
+  ├── budget-managment/
+  └── user-authentication/
+#+end_src
+
+If you pose the following prompt to Claude, it probably won't be able to
+answer your query given the above folder structure:
+
+#+begin_quote
+*Prompt* Look at the project. Is it doing client-side state management or
+server state caching?
+
+*Claude* Looking at this project structure, I can see directories for
+~expense-tracking~, ~categorization~, ~financial reporting~,
+~budget-management~, and ~user-authentication~, but I cannot
+definitively determine whether this is doing client-side state management
+or server state caching just from the folder structure alone.
+#+end_quote
+
+To arrive at an answer, Claude Code would then have to start reading the
+source files, which will consume more input tokens and cost more money.
+
+What if our folder structure looks like this:
+
+#+begin_src text
+  src/
+  ├── helpers/
+  ├── context/
+  └── api/
+#+end_src
+
+What would Claude's response to the above prompt be?
+
+*Claude*: I'd need to examine the actual code files to determine whether
+your project is doing client-side state management or server state caching.
+
+What if our project structure looks like this:
+
+#+begin_src text
+  src/
+  ├── store/
+  ├── slices/
+  ├── reducers/
+  ├── actions/
+  └── .../
+#+end_src
+
+*Claude*: based on the folder structure you've provided, this appears to be
+doing client-side state management using ~Redux/Redux Toolkit~.
+
+Because AI's are trained on material that use common naming conventions, we
+should try to follow these conventions to help the AI utilize knowledge from
+its training set.
+
+** Context the AI can gain from project structure and file/dir names
+
+The names of files and directories as well as the directory structure can
+give the AI information about the following:
+
+- What the main features are
+  + ~users/~
+  + ~payments/~
+  + ~inventory/~
+  + ~messaging/~
+- What technology stack is used
+  + ~.js~ files
+  + ~.py~ files
+  + ~package.json~ for =npm= node package manager
+  + ~requirements.txt~ for =pip= python package manager
+- How the code is organized
+  + ~models/~
+  + ~views/~
+  + ~controllers/~
+  + ~components/~
+  + ~utils/~
+- What external systems it connects to
+  + ~api/~
+  + ~integrations/~
+  + ~webhooks/~
+  + ~third-party/~
+- How the app is built and deployed
+  + ~Dockerfile~ for container apps
+  + ~build/~
+  + ~scripts/~
+  + ~.github/workflows/~ for Github Actions
+- What type of application it is
+  + ~src/components/~ = web app
+  + ~MainActivity.java~ = Android app
+
+Etc..
+
+If you have to write out in English sentences how your project is organized
+and all the different folders, it will take many more tokens than your
+coding agent just running =tree= or =ls= as long as you have a well
+ordered and properly named directory layout.
+
+** Conclusion
+
+If you ask Claude to /change the expense dashboard/, and the you have a
+folder named ~expense_dashboard~, it will be easy for Claude to find
+and edit the appropriate source files. But on the other hand, if your
+expense dashboard code is broken into 10 separate components spread across
+different folders in the hierarchy and does not follow a common naming
+pattern or folder structure, it is going to be much harder for your AI
+labor to achieve the task.

@@ -1,0 +1,244 @@
+#+TITLE: Module 7.1 Multi-modal prompting
+#+SUBTITLE: from coffee-stained napkin to production code
+#+AUTHOR: Peter Jun Koh
+#+EMAIL: gopeterjun@naver.com
+#+DESCRIPTION: use image files as context
+#+KEYWORDS: gen AI, LLM, claude, design, prompt, images
+#+LANGUAGE: en
+
+* Summary
+
+- Created on: [2025-08-10 Sun]
+- Last Updated: [2025-08-10 Sun 17:36]
+
+The frontier LLM's in 2025 can accept text, audio, and image input from
+users. This module shows how a design sketch made on a coffee shop napkin
+(with coffee stains) can be converted into an image by your smart phone
+camera and then submitted to Claude for analysis.
+
+*Scenario* You're sitting in a coffee shop brainstorming your expense
+tracker app when inspiration strikes. You grab a napkin and start sketching
+your ideas, but your latte leaves a few stains on your masterpiece. No
+problem - Claude Code can turn even the messiest sketches into polished,
+production-ready code.
+
+* Topics
+
+** The Sketch
+
+#+CAPTION: Coffee shop napkin sketch
+#+NAME: napkin-sketch
+[[./images/coffee-shop-napkin-sketch.png]]
+
+Your sketch includes:
+
+- A header saying "Monthly Insights"
+- A donut chart showing spending by category
+- A list of your top 3 spending categories with amounts
+- A "spending streak" indicator (days without overspending)
+- Some coffee ring stains that you decide add character
+
+** Transforming Sketch to Code
+
+First you need to convert your napkin sketch into an image file. You could
+scan your napkin in a flatbed scanner, put a smartphone photo will also be
+ok. To make the image file available to Claude Code, you can just copy the
+image file into your project repo and tell Claude the path to the file. On
+some platforms you could also drag-and-drop the image file into the Claude
+Code prompt area.
+
+Here is a sample prompt:
+
+
+#+begin_quote
+I sketched an expense insights dashboard on a napkin at a coffee shop.
+Please implement this as a React component called ~MonthlyInsights~.
+
+Looking at this sketch: ~/path/to/coffee-shop-napkin-sketch.png~
+
+Implement a new screen in the application that mirrors what you see in the
+mockup.
+#+end_quote
+
+** Submit Whiteboard sketch to Claude Code
+
+*Scenario* You've just wrapped up an intense team meeting where everyone
+ was sketching ideas on the whiteboard. The board is covered with user
+ flows, component layouts, and architecture diagrams. Instead of losing
+ momentum while the team takes a coffee break, you can take pictures of the
+ whiteboard and have Claude Code implement multiple versions of your
+ ideas - so when you return with fresh coffee, you have working prototypes
+ to evaluate.
+
+** What's Easier to Show Than Tell: Visual Communication in S/W Dev
+
+Certain concepts are dramatically easier to communicate through images than
+through text descriptions. Understanding when to reach for a screenshot,
+sketch, or diagram can save you time and lead to much better results. The
+examples below try to illustrate this point in various development domains.
+
+*** UI/UX Design and Layout
+
+*Spatial Relationships*
+- /Why visual wins/: Describing how elements should be positioned relative
+  to each other is incredibly verbose and prone to misinterpretation.
+- /Text approach/: "The search bar should be centered horizontally at the
+  top, with the logo 20px to the left, and the user avatar 15px to the
+  right. Below that, there should be a navigation menu with equal spacing
+  between items, and the main content area should start 40px below the
+  navigation..."
+- /Visual approach/: Show wireframe or mockup, "Implement this layout
+  exactly as shown."
+
+*Color Schemes & Visual Hierarchy*
+- /Why visual wins/: Colors, gradients, shadows, and visual emphasis are
+  nearly impossible to describe precisely.
+- /Text approach/: "Use a blue that's not too dark but not too light, kind
+  of like a professional blue but warmer, with a subtle gradient that goes
+  from slightly lighter at the top to slightly darker at the bottom..."
+- /Visual approach/: ~Shows color palette or existing design~: "Match these
+  exact colors and visual treatment."
+
+*Responsive Behavior*
+- /Why visual wins/: How layouts should adapt across screen sizes involves
+  complex spatial reasoning.
+- /Text approach/: "On mobile, the sidebar should collapse into a hamburger
+  menu, the cards should stack vertically instead of in a grid, and the
+  font sizes should scale down proportionally while maintaining
+  readability..."
+- /Visual approach/: Show mobile and desktop screenshots side by side,
+  "Make it responsive like this."
+
+*** Data Visualization and Charts
+
+*Chart Types and Styling*
+- /Why visual wins/: The appearance of charts involves many subtle design
+  decisions that are hard to articulate.
+- /Text approach/: "Create a donut chart with the hole about 40% of the
+  radius, use these five colors but make sure they're visually distinct,
+  add labels that don't overlap, and position the legend to the right
+  unless there's not enough space..."
+- /Visual approach/: Show example chart or sketch, "Create a chart that
+  looks like this."
+
+*Dashboard Layouts*
+- /Why visual wins/: Dashboards involve complex arrangements of multiple
+  data visualizations.
+- /Text approach/: "Put the main KPI cards at the top in a row of four,
+  then below that have a large chart taking up two-thirds of the width with
+  a smaller chart on the right, and below that have a table that spans the
+  full width..."
+- /Visual approach/: Show dashboard mockup, "Implement this dashboard
+  layout."
+
+*** User Flows & Interactions
+
+*Multi-Step Processes*
+- /Why visual wins/: User flows involve state changes, conditional logic,
+  and multiple screens that are hard to describe linearly.
+- /Text approach/: "First the user sees a form, then after they submit they
+  go to a confirmation page, but if there's an error they stay on the form
+  with error messages, and if they're not logged in they go to login first,
+  unless they're a guest user in which case..."
+- /Visual approach/: Show flow diagram with arrows and decision points,
+  "Implement this user flow."
+
+*Animation & Transitions*
+- /Why visual wins/: Motion and timing are inherently visual concepts.
+- /Text approach/: "When the modal opens, it should slide in from the
+  bottom with a smooth easing function, not too fast but not too slow, and
+  the background should fade to dark but not completely black..."
+- /Visual approach/: Show video or animated GIF, "Make it animate like
+  this."
+
+*** Error States and Edge Cases
+
+*Visual Bug Reports*
+- /Why visual wins/: Layout issues, styling problems, and visual glitches
+  are immediately obvious in screenshots.
+- /Text approach/: "The button text is being cut off and there's weird
+  spacing around the form fields, and the colors don't look right, and on
+  mobile the navigation is overlapping the content..."
+- /Visual approach/: Show screenshot of the problem, "Fix what's wrong in
+  this screenshot."
+
+*Empty States and Loading States*
+- /Why visual wins/: These states involve specific visual messaging and
+  layout considerations.
+- /Text approach/: "When there's no data, show a friendly message with an
+  illustration, maybe something about getting started, and make sure it's
+  centered and not too empty-looking..."
+- /Visual approach/: Show examples of good empty states, "Design empty
+  states like these examples."
+
+*** Architecture and System Design
+
+*System Architecture Diagrams*
+- /Why visual wins/: System relationships, data flow, and component
+  interactions are spatial concepts.
+- /Text approach/: "The frontend talks to the API gateway which routes to
+  three microservices, each with their own database, and there's a message
+  queue between the order service and the inventory service..."
+- /Visual approach/: Show architecture diagram, "Implement this system
+  architecture."
+
+*Database Schema Relationships*
+- /Why visual wins/: Table relationships, foreign keys, and data modeling
+  are inherently visual.
+- /Text approach/: "Users have many expenses, expenses belong to categories,
+  categories can have subcategories, and there's a many-to-many
+  relationship between expenses and tags..."
+- /Visual approach/: Show entity relationship diagram, "Create this database schema."
+
+*** Complex Business Logic
+
+*Decision Trees & Conditional Logic*
+- /Why visual wins/: Complex if/then scenarios are easier to follow
+  visually.
+- /Text approach/: "If the user is ~premium~ and the expense is over $100
+  but less than $1000 and it's in the /food/ category and it's a weekday,
+  then apply the ~premium~ discount, but if it's a weekend or they're not
+  ~premium~..."
+- /Visual approach/: Show decision flowchart, "Implement this business
+  logic flow."
+
+*Workflow Diagrams*
+- /Why visual wins/: Business processes involve multiple actors, decision
+  points, and parallel flows.
+- /Text approach/: "The manager approves the expense, then it goes to
+  accounting, but if it's over $500 it needs director approval first, and
+  if it's travel-related it also needs HR review..."
+- /Visual approach/: Show workflow diagram, "Build this approval workflow."
+
+*** Performance and Technical Issues
+
+*Performance Profiling Results*
+- /Why visual wins/: Performance data involves charts, timelines, and
+  visual patterns.
+- /Text approach/: "The main thread is blocked for about 200ms during
+  rendering, there's a memory leak that gradually increases over time, and
+  there are several functions that take longer than expected..."
+- /Visual approach/: Show ~DevTools~ performance profile, "Optimize based
+  on this performance analysis."
+
+*Network Architecture*
+- /Why visual wins/: Network topologies, load balancing, and infrastructure
+  are spatial concepts.
+- /Text approach/: "Put a load balancer in front of three application
+  servers, with a database cluster behind them, and CDN for static assets,
+  with monitoring on everything..."
+- /Visual approach/: Show network topology diagram, "Set up this
+  infrastructure."
+
+*** When Visual Communication Transforms Productivity
+
+- *Design Handoffs*: Instead of writing detailed specifications, designers
+  can show mockups and Claude Code can implement them directly.
+- *Bug Reports*: Screenshots with annotations are infinitely more useful
+  than textual descriptions of visual problems.
+- *Stakeholder Communication*: Showing working prototypes based on sketches
+  creates immediate understanding and feedback.
+- *Code Reviews*: Before/after screenshots help reviewers understand the
+  impact of changes.
+- *Documentation*: Visual examples in documentation are more effective than
+  purely textual explanations.
