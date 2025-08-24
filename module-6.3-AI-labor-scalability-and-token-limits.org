@@ -42,7 +42,7 @@ find the files it needs to edit without too much difficulty.
 But in larger projects, you can't just dump all files in the project into
 Claude's context because the context window is limited (currently in Aug
 2025, the input token limit is ~256,000~ tokens/min for /Tier 1/ and
-~450,000~ tokens/min for /Tier 2/). Also, it is expensive, because we are
+cp~450,000~ tokens/min for /Tier 2/). Also, it is expensive, because we are
 billed /per-token/. Currently in Aug 2025 the cost is about $5 per
 1,000,000 input tokens for most of the frontier models.
 
